@@ -1,0 +1,11 @@
+<h1>Posts#index ログインユーザーが投稿したもののみ表示</h1>
+<p>Find me in app/views/posts/index.html.erb</p>
+
+<h1>投稿一覧</h1>
+
+<% @posts.each do |post| %>
+
+  <p>タイトル</p>
+  <span><%= post.title %></span>
+  
+<% end %>
