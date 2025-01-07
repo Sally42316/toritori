@@ -1,2 +1,23 @@
 <h1>Users#edit</h1>
 <p>Find me in app/views/users/edit.html.erb</p>
+
+<h1>Edit Your Profile</h1>
+
+<%= form_for @user do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+
+  <div>
+    <%= f.submit 'Update Profile' %>
+  </div>
+
+<%= link_to 'Back', user_path(@user), class: 'btn btn-primary' %>
+<% end %>
