@@ -5,8 +5,12 @@
 
 <% @posts.each do |post| %>
   <div class="post">
-    <p><strong><%= post.user.email %></strong> posted:</p>
-    <p><%= post.text %></p>  
+    <% if post.user %> 
+      <p><strong><%= post.user.name %></strong> が投稿しました：</p>
+    <% else %>
+      <p><strong>Already deleted</strong> が投稿しました：</p>
+    <% end %>
+    <p><%= post.text %></p>
     <p><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
   </div>
 <% end %>

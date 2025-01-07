@@ -18,8 +18,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user = current_user
-    @user.destroy
-    redirect_to root_path, notice: 'Your account has been deleted'
+    @user.destroy  # ユーザーを物理的に削除
+    redirect_to new_user_registration_path, notice: 'Your account has been deleted'
   end
 
   private
