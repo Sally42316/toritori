@@ -1,9 +1,27 @@
 <h1>Users#show</h1>
 <p>Find me in app/views/users/show.html.erb</p>
 
-<h1>Your Profile</h1>
+<h1>Profile Detail</h1>
 
-<p><strong>Name:</strong> <%= @user.name %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-
-<%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary' %>
+<% if @user == current_user %>
+  <p><strong>Name:</strong> <%= @user.name %></p>
+  <p><strong>Email:</strong> <%= @user.email %></p>
+  <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary' %>
+<% else %>
+  <p><strong>Name:</strong> <%= @user.name %></p>
+  
+  <!-- 投稿一覧を表示 -->
+  <h2>Posts</h2>
+  <ul style="list-style-type: none; padding-left: 0;">
+    <% @user.posts.each do |post| %> <!-- postのループを開始 -->
+      <li>
+        <%= post.title %>
+        <% if post.images.attached? %> <!-- 画像が添付されている場合 -->
+          <% post.images.each do |image| %> <!-- 添付されている各画像を繰り返し表示 -->
+            <%= image_tag image, style: "max-width: 100px; max-height: 100px;" %>
+          <% end %> <!-- 画像の繰り返しのend -->
+        <% end %> <!-- 画像が添付されているかどうかのifのend -->
+      </li>
+    <% end %> <!-- postのループのend -->
+  </ul>
+<% end %> <!-- elseのend -->

@@ -4,8 +4,15 @@
 <h1>投稿一覧</h1>
 
 <% @posts.each do |post| %>
+  <div class="post">
+    <h4><%= link_to post.text, edit_post_path(post) %></h4> <!-- ここをリンクに変更 -->
 
-  <p>タイトル</p>
-  <span><%= post.title %></span>
-  
+    <% if post.images.attached? %>
+      <% post.images.each do |image| %>
+        <%= image_tag image %>
+      <% end %>
+    <% else %>
+    <% end %>
+    <br>
+  </div>
 <% end %>

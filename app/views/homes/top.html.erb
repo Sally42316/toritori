@@ -11,6 +11,14 @@
       <p><strong>Already deleted</strong> が投稿しました：</p>
     <% end %>
     <p><%= post.text %></p>
+    <% if post.images.attached? %> <!-- 画像が添付されているか確認 -->
+      <% post.images.each do |image| %> <!-- 画像をループで表示 -->
+        <%= image_tag image %> <!-- 画像を表示 -->
+      <% end %>
+    <% else %>
+      <!-- 画像がない場合のメッセージ -->
+    <% end %>
     <p><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+    <br>
   </div>
 <% end %>

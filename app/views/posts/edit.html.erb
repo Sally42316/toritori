@@ -1,2 +1,26 @@
 <h1>Posts#edit</h1>
 <p>Find me in app/views/posts/edit.html.erb</p>
+
+<h2>投稿を編集</h2>
+
+<%= form_for @post do |f| %>
+  <div>
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :text, "内容" %>
+    <%= f.text_area :text %>
+  </div>
+
+  <h4>画像を選択</h4>
+  <%= f.file_field :images, multiple: true %>
+
+  <div>
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
+
+<%= link_to 'キャンセル', posts_path %>
+<%= link_to '削除', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "delete-link" %>

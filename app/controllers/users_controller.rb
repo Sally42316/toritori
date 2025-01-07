@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
   def show
-    @user = current_user  # ログインしているユーザーを取得
+    @user = User.find(params[:id])
+    # @user = current_user  # ログインしているユーザーを取得
   end
 
   def edit
     @user = current_user  # ログインしているユーザーを取得
+  end
+
+  def index
+    @users = User.all
   end
 
   def update
@@ -12,7 +17,9 @@ class UsersController < ApplicationController
     if @user.update(user_params)  # ユーザー情報を更新
       redirect_to @user, notice: 'Profile updated successfully'
     else
-      render :edit  # 更新に失敗した場合は再度編集フォームを表示
+      # 更新に失敗した場合、エラーメッセージを表示
+      flash.now[:alert] = @user.errors.full_messages.to_sentence
+      render :edit  # 編集フォームを再表示
     end
   end
 
@@ -25,6 +32,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :bio)  # 編集可能な属性を指定
+    params.require(:user).permit(:name, :email)  # 編集可能な属性を指定
   end
 end
