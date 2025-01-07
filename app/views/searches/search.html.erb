@@ -1,0 +1,32 @@
+<h2>Results index</h2>
+
+<table class="table table-hover table-inverse">
+  <% if @range == "User" %>
+    <tbody>
+      <% if @users.present? %>
+        <% @users.each do |user| %>
+          <tr>
+            <td>ユーザー：<%= link_to user.name, user_path(user) %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="1">該当するユーザーが見つかりませんでした。</td></tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <tbody>
+      <% if @posts.present? %>
+        <% @posts.each do |post| %>
+          <tr>
+            <td>
+              投稿者：<%= post.user.name %><br>
+              <%= link_to post.text, user_path(post.user) %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="2">該当する投稿が見つかりませんでした。</td></tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

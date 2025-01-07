@@ -13,15 +13,16 @@
   <!-- 投稿一覧を表示 -->
   <h2>Posts</h2>
   <ul style="list-style-type: none; padding-left: 0;">
-    <% @user.posts.each do |post| %> <!-- postのループを開始 -->
-      <li>
-        <%= post.title %>
-        <% if post.images.attached? %> <!-- 画像が添付されている場合 -->
-          <% post.images.each do |image| %> <!-- 添付されている各画像を繰り返し表示 -->
-            <%= image_tag image, style: "max-width: 100px; max-height: 100px;" %>
-          <% end %> <!-- 画像の繰り返しのend -->
-        <% end %> <!-- 画像が添付されているかどうかのifのend -->
-      </li>
-    <% end %> <!-- postのループのend -->
-  </ul>
+  <% @user.posts.each do |post| %>
+    <li>
+      <%= post.text %> <!-- 投稿内容 -->
+      
+      <% if post.images.attached? %> <!-- 画像が添付されている場合 -->
+        <% post.images.each do |image| %> <!-- 添付されている各画像を繰り返し表示 -->
+          <%= image_tag image, style: "max-width: 100px; max-height: 100px;" %>
+        <% end %> <!-- 画像の繰り返しのend -->
+      <% end %> <!-- 画像が添付されているかどうかのifのend -->
+    </li>
+  <% end %>
+</ul>
 <% end %> <!-- elseのend -->

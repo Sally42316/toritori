@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :posts, only: [:new, :show, :edit, :update, :destroy, :index]
   post 'posts' => 'posts#create'
 
+  get "search" => "searches#search"
+
   # root to: 'posts#index' →current userの投稿一覧になるのでダメ
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

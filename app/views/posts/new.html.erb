@@ -4,10 +4,8 @@
 <h1>新規投稿</h1>
 <!-- form_with部分 -->
 <%= form_with model: @post do |f| %>
-  <h4>タイトル</h4>
-  <%= f.text_field :title %>
-	
-  <h4>本文</h4>
+
+	<h4>本文</h4>
   <%= f.text_area :text %>
 
   <h4>画像を選択</h4>
