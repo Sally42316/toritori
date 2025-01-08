@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:new, :show, :edit, :update, :destroy, :index] do
     # ここでpost_commentsなどをネストできます。
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :destroy]
   end
   post 'posts' => 'posts#create'
 

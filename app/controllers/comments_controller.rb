@@ -5,11 +5,16 @@ class CommentsController < ApplicationController
     comment.post_id = post.id
     comment.save
     redirect_to post_path(post)
-end
+  end
+
+  def destroy
+    Comment.find(params[:id]).destroy
+    redirect_to post_path(params[:post_id])
+  end
 
 private
 
-def comment_params
-   params.require(:comment).permit(:comment)
-end
+  def comment_params
+    params.require(:comment).permit(:comment)
+  end
 end
