@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :edit, :update, :destroy, :index]
 
-  resources :posts, only: [:new, :show, :edit, :update, :destroy, :index]
+  resources :posts, only: [:new, :show, :edit, :update, :destroy, :index] do
+    # ここでpost_commentsなどをネストできます。
+    resources :comments, only: [:create]
+  end
   post 'posts' => 'posts#create'
 
   get "search" => "searches#search"

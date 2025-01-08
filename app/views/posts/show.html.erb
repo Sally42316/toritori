@@ -1,9 +1,26 @@
 <h1>Posts#show</h1>
 <p>Find me in app/views/posts/show.html.erb</p>
 
-
-<h4><%= link_to @post.text, edit_post_path(@post) %></h4> <!-- ここをリンクに変更 -->
+<% if @post.user == current_user %>  <!-- 投稿者がカレントユーザーの場合のみ表示 -->
+<h4><%= link_to @post.text, edit_post_path(@post), style: "color: black;" %></h4> <!-- 編集リンク -->
+<% else %>
+  <h4><%= @post.text %></h4> <!-- 編集リンクがない場合、テキストのみ表示 -->
+<% end %>
 
 <% @post.images.each do |image| %>
-    <%= image_tag image %>
+  <%= image_tag image %>  <!-- 投稿の画像を表示 -->
+<% end %>
+
+<div>
+  <p>コメント件数：<%= @post.comments.count %></p>
+  <% @post.comments.each do |comment| %>
+    <%= comment.user.name %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
   <% end %>
+</div>
+<div>
+  <%= form_with model: [@post, @comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>

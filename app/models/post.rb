@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
     belongs_to :user
     has_many_attached :images # 複数画像の添付を許可
+    has_many :comments, dependent: :destroy
 
     validates :text, presence: true
 

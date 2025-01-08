@@ -13,6 +13,7 @@
       <% end %>
     <% else %>
     <% end %>
+    <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
     <br>
   </div>
 <% end %>
