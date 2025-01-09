@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   get "search" => "searches#search"
 
-  # root to: 'posts#index' →current userの投稿一覧になるのでダメ
+  resources :groups, except: [:destroy]
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
 end

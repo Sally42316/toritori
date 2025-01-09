@@ -24,6 +24,12 @@
 				<%= link_to "My Profile", user_path(current_user), class: "nav-link text-light" %>
 			</li>
 			<li>
+				<%= link_to "Create Group", new_group_path, class: "nav-link text-light" %>
+			</li>
+			<li>
+				<%= link_to "My Group", groups_path, class: "nav-link text-light" %>
+			</li>
+			<li>
 				<%= link_to "Log out", destroy_user_session_path, class:"nav-link text-light", method: :delete %>
             </li>
         <% else %>
