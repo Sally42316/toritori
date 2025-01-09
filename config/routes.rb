@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :admins, controllers: {
+    sessions: "admin/sessions"
+  }
+
+
   devise_for :users
 
   root to: 'homes#top'
@@ -16,5 +21,7 @@ Rails.application.routes.draw do
 
   resources :groups, except: [:destroy]
 
-
+  namespace :admin do
+    root to: 'homes#top'
+  end
 end
