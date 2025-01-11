@@ -1,4 +1,23 @@
 <h1>Admin::Homes#top</h1>
 <p>Find me in app/views/admin/homes/top.html.erb</p>
 
-<!-- app/views/admin/homes/top.html.erb -->
+<h1>一般ユーザーが投稿したコメント一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ユーザー名</th>
+      <th>コメント内容</th>
+      <th>投稿日時</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.user.name %></td>  <!-- ユーザー名を表示 -->
+        <td><%= comment.comment %></td>      <!-- コメント内容を表示 -->
+        <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>  <!-- コメントの投稿日を表示 -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
