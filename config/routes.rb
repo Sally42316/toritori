@@ -24,7 +24,9 @@ Rails.application.routes.draw do
   resources :groups, except: [:destroy]
 
   namespace :admin do
-    root to: 'homes#top'
+    # root to: 'homes#top'
+    get 'comments', to: 'homes#top'
+    
     resources :comments, only: [:index, :show, :destroy]  # コメント関連のリソース
   end
 end
