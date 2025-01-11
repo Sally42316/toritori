@@ -1,58 +1,63 @@
 <header>
-	<nav class="navbar navbar-expand-lg" style="background-color: #5BAD92;">
-	<div class="container">
-		<a class="navbar-brand" href="/" style="font-weight: bold; color: white;"><span>toritori</span></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg" style="background-color: #5BAD92;">
+    <div class="container">
+      <a class="navbar-brand" href="/" style="font-weight: bold; color: white;">
+        <span>toritori</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarNavDropdown">
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
 
-		<% if user_signed_in? %>
-			<li>
-				<%= link_to root_path, class:"nav-link text-light" do %>
-				Home
-				<% end %>
+          <% if user_signed_in? %> <!-- 通常ユーザーがログインしている場合 -->
+            <li>
+              <%= link_to root_path, class:"nav-link text-light" do %>
+                Home
+              <% end %>
             </li>
             <li>
-				<%= link_to "New Post", new_post_path, class: "nav-link text-light" %>
+              <%= link_to "New Post", new_post_path, class: "nav-link text-light" %>
             </li>
-			<li>
-				<%= link_to "My Post", posts_path, class: "nav-link text-light" %>
-			</li>
-			<li>
-				<%= link_to "My Profile", user_path(current_user), class: "nav-link text-light" %>
-			</li>
-			<li>
-				<%= link_to "Create Group", new_group_path, class: "nav-link text-light" %>
-			</li>
-			<li>
-				<%= link_to "My Group", groups_path, class: "nav-link text-light" %>
-			</li>
-			<li>
-				<%= link_to "Log out", destroy_user_session_path, class:"nav-link text-light", method: :delete %>
+            <li>
+              <%= link_to "My Post", posts_path, class: "nav-link text-light" %>
             </li>
-        <% else %>
-
-			
-			<li>
-				<%= link_to about_path, class:"nav-link text-light" do %>
-				About
-				<% end %>
-			</li>
-			<li>
-				<%= link_to new_user_registration_path, class:"nav-link text-light" do %>
-				Sign up
-				<% end %>
-			</li>
-			<li>
-				<%= link_to new_user_session_path, class:"nav-link text-light" do %>
-				Log in
-				<% end %>
-			</li>
+            <li>
+              <%= link_to "My Profile", user_path(current_user), class: "nav-link text-light" %>
+            </li>
+            <li>
+              <%= link_to "Create Group", new_group_path, class: "nav-link text-light" %>
+            </li>
+            <li>
+              <%= link_to "My Group", groups_path, class: "nav-link text-light" %>
+            </li>
+            <li>
+              <%= link_to "Log out", destroy_user_session_path, class:"nav-link text-light", method: :delete %>
+            </li>
+          <% elsif admin_signed_in? %> <!-- 管理者がログインしている場合 -->
+            <li>
+              <%= link_to "admin Log out", destroy_admin_session_path, class:"nav-link text-light", method: :delete %>
+            </li>
+          <% else %> <!-- ユーザーがサインインしていない場合 -->
+            <li>
+              <%= link_to about_path, class:"nav-link text-light" do %>
+                About
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path, class:"nav-link text-light" do %>
+                Sign up
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_session_path, class:"nav-link text-light" do %>
+                Log in
+              <% end %>
+            </li>
+          <% end %> <!-- user_signed_in? と admin_signed_in? の確認 -->
+          
         </ul>
-		<% end %>
-		</div>
-	</div>
-	</nav>
+      </div>
+    </div>
+  </nav>
 </header>
