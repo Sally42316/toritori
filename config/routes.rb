@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'comments/show'
+    get 'comments/destroy'
+  end
   devise_for :admins, path: 'admin', controllers: {
     sessions: "admin/sessions",
     registrations: "admin/registrations",
