@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'posts/show'
-  end
-  namespace :admin do
-    get 'comments/show'
-    get 'comments/destroy'
-  end
+
   devise_for :admins, path: 'admin', controllers: {
     sessions: "admin/sessions",
     registrations: "admin/registrations",
@@ -35,6 +29,9 @@ Rails.application.routes.draw do
     get 'comments', to: 'homes#top'
     
     resources :comments, only: [:index, :show, :destroy]  # コメント関連のリソース
-    resources :posts, only: [:show] # 投稿詳細
+    resources :posts, only: [:show, :destroy] # 投稿詳細
+    resources :users, only: [:show, :index, :edit, :destroy] # 投稿詳細
+
+
   end
 end

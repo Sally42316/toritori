@@ -1,9 +1,9 @@
 <h1>Admin::Posts#show</h1>
 <p>Find me in app/views/admin/posts/show.html.erb</p>
 
-<h1><%= @post.title %></h1>
 
 <p><%= @post.text %></p>
+<%= link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
 
 <h2>コメント一覧</h2>
 <% @comments.each do |comment| %>
