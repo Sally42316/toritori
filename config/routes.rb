@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
+    get 'posts/show'
+  end
+  namespace :admin do
     get 'comments/show'
     get 'comments/destroy'
   end
@@ -32,5 +35,6 @@ Rails.application.routes.draw do
     get 'comments', to: 'homes#top'
     
     resources :comments, only: [:index, :show, :destroy]  # コメント関連のリソース
+    resources :posts, only: [:show] # 投稿詳細
   end
 end

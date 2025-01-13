@@ -1,0 +1,17 @@
+<h1>Admin::Posts#show</h1>
+<p>Find me in app/views/admin/posts/show.html.erb</p>
+
+<h1><%= @post.title %></h1>
+
+<p><%= @post.text %></p>
+
+<h2>コメント一覧</h2>
+<% @comments.each do |comment| %>
+  <div class="comment">
+    <p><strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %></p>
+    <p><%= comment.comment %></p>
+    <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', admin_comments_path %> <!-- コメント一覧に戻るリンク -->
