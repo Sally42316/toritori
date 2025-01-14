@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :authorize_user, only: [:edit, :update]
+
   def show
     @user = User.find(params[:id])
     # @user = current_user  # ログインしているユーザーを取得
@@ -30,6 +33,16 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def authorize_user
+    unless current_user == @user
+      redirect_to root_path, alert: 'You are not authorized to edit this profile.'
+    end
+  end
 
   def user_params
     params.require(:user).permit(:name, :email)  # 編集可能な属性を指定

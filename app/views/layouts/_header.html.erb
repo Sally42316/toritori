@@ -34,6 +34,9 @@
             <li>
               <%= link_to "Log out", destroy_user_session_path, class:"nav-link text-light", method: :delete %>
             </li>
+            <li>
+            <%= link_to "About", "/homes/about", class: "nav-link text-light" %>
+            </li>
           <% elsif admin_signed_in? %> <!-- 管理者がログインしている場合 -->
             <li>
               <%= link_to "admin top", admin_comments_path, class:"nav-link text-light" %>
