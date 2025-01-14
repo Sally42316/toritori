@@ -1,29 +1,37 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1 class="text-center my-4">Profile Detail</h1>
+<p class="text-center">Find me in <code>app/views/users/show.html.erb</code></p>
 
-<h1>Profile Detail</h1>
+<div class="container">
+  <% if @user == current_user %>
+    <!-- ユーザー自身の場合、プロフィールの編集ができる -->
+    <div class="mb-4">
+      <p><strong>Name:</strong> <%= @user.name %></p>
+      <p><strong>Email:</strong> <%= @user.email %></p>
+      <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary btn-lg' %>
+    </div>
+  <% else %>
+    <!-- 他のユーザーのプロフィール -->
+    <div class="mb-4">
+      <p><strong>Name:</strong> <%= @user.name %></p>
+    </div>
 
-<% if @user == current_user %>
-  <p><strong>Name:</strong> <%= @user.name %></p>
-  <p><strong>Email:</strong> <%= @user.email %></p>
-  <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary' %>
-<% else %>
-  <p><strong>Name:</strong> <%= @user.name %></p>
-  
-  <!-- 投稿一覧を表示 -->
-  <h2>Posts</h2>
-  <ul style="list-style-type: none; padding-left: 0;">
-  <% @user.posts.each do |post| %>
-    <li>
-      <!-- 投稿のテキストをリンクに変更して投稿詳細ページへ遷移 -->
-      <%= link_to post.text, post_path(post) %> <!-- 投稿の詳細ページへ遷移 -->
+    <h2 class="mt-4">Posts</h2>
+    <ul class="list-unstyled">
+      <% @user.posts.each do |post| %>
+        <li class="mb-3">
+          <!-- 投稿のテキストをリンクに変更して投稿詳細ページへ遷移 -->
+          <%= link_to post.text, post_path(post), class: 'h5' %>
 
-      <% if post.images.attached? %> <!-- 画像が添付されている場合 -->
-        <% post.images.each do |image| %> <!-- 添付されている各画像を繰り返し表示 -->
-          <%= image_tag image, style: "max-width: 100px; max-height: 100px;" %>
-        <% end %> <!-- 画像の繰り返しのend -->
-      <% end %> <!-- 画像が添付されているかどうかのifのend -->
-    </li>
+          <!-- 画像が添付されている場合、サムネイル画像を表示 -->
+          <% if post.images.attached? %>
+            <div class="mt-2">
+              <% post.images.each do |image| %>
+                <%= image_tag image, class: 'img-thumbnail', style: "max-width: 100px; max-height: 100px; margin-right: 10px;" %>
+              <% end %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
   <% end %>
-</ul>
-<% end %>
+</div>

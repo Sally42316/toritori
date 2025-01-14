@@ -1,41 +1,60 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<h1 class="text-center my-4">投稿詳細</h1>
+<p class="text-center">Find me in <code>app/views/posts/show.html.erb</code></p>
 
-<% if @post.user == current_user %>  <!-- 投稿者がカレントユーザーの場合のみ表示 -->
-<p>投稿者: <%= link_to @post.user.name, user_path(@post.user) %></p> <!-- クリックでユーザーの詳細ページへ遷移 -->
-<h4><%= link_to @post.text, edit_post_path(@post), style: "color: black;" %></h4> <!-- 編集リンク -->
-<% else %>
-  <h4><%= @post.text %></h4> <!-- 編集リンクがない場合、テキストのみ表示 -->
-<% end %>
+<div class="container">
+  <% if @post.user == current_user %>  <!-- 投稿者がカレントユーザーの場合のみ表示 -->
+    <p>投稿者: <%= link_to @post.user.name, user_path(@post.user), class: "text-primary" %></p> <!-- クリックでユーザーの詳細ページへ遷移 -->
+    <h4>
+      <%= link_to @post.text, edit_post_path(@post), style: "color: black;" %> <!-- 編集リンク -->
+    </h4>
+  <% else %>
+    <h4><%= @post.text %></h4> <!-- 編集リンクがない場合、テキストのみ表示 -->
+  <% end %>
 
-<% @post.images.each do |image| %>
-  <%= image_tag image %>  <!-- 投稿の画像を表示 -->
-<% end %>
+  <!-- 投稿の画像を表示 -->
+  <% if @post.images.attached? %>
+    <div class="row">
+      <% @post.images.each do |image| %>
+        <div class="col-12 col-md-6 mb-3">
+          <%= image_tag image, class: "img-fluid rounded" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
-<div>
-  <p>コメント件数：<%= @post.comments.count %></p>
-  <% @post.comments.each do |comment| %>
-    <div class="comment">
-      <p>
-        <strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %>
-        <% if comment.user == current_user %>
-          <%= link_to "削除", post_comment_path(@post, comment), method: :delete, style: "display: inline-block; margin-left: 10px;" %>
-        <% end %>
-      </p>
-      <p><%= comment.comment %></p>
+  <!-- コメントセクション -->
+  <div class="mt-4">
+    <p>コメント件数：<%= @post.comments.count %></p>
+    <% @post.comments.each do |comment| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p>
+            <strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %>
+            <% if comment.user == current_user %>
+              <%= link_to "削除", post_comment_path(@post, comment), method: :delete, class: "btn btn-danger btn-sm ml-2", data: { confirm: '本当に削除しますか？' } %>
+            <% end %>
+          </p>
+          <p><%= comment.comment %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- コメント投稿フォーム -->
+  <div class="mt-4">
+    <%= form_with model: [@post, @comment], class: "form" do |f| %>
+      <div class="form-group">
+        <%= f.text_area :comment, rows: '5', class: "form-control", placeholder: "コメントをここに" %>
+      </div>
+      <%= f.submit "送信する", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <!-- 編集・削除ボタン（投稿者がカレントユーザーの場合） -->
+  <% if @post.user == current_user %>
+    <div class="mt-4">
+      <%= link_to '編集', edit_post_path(@post), class: 'btn btn-primary' %>
+      <%= link_to '削除', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger ml-2' %>
     </div>
   <% end %>
 </div>
-<div>
-  <%= form_with model: [@post, @comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-    <!-- 編集ボタン（ログインユーザーが投稿したもののみ表示） -->
-<% if @post.user == current_user %> <!-- 投稿がログインユーザーによって作成されたものである場合 -->
-  <%= link_to '編集', edit_post_path(@post), class: 'btn btn-primary' %> <!-- 編集ボタン -->
-  
-  <!-- 削除ボタン -->
-  <%= link_to '削除', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %> <!-- 削除ボタン -->
-<% end %>

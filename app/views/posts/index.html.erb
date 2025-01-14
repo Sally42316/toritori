@@ -1,31 +1,37 @@
-<h1>Posts#index ログインユーザーが投稿したもののみ表示</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h1 class="text-center my-4">ログイン者投稿一覧</h1>
+<p class="text-center">Find me in <code>app/views/posts/index.html.erb</code></p>
 
-<h1>投稿一覧</h1>
+<div class="container">
+  <% @posts.each do |post| %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <!-- 投稿テキストへのリンク -->
+        <h4 class="card-title">
+          <%= link_to post.text, post_path(post), class: "text-dark" %>
+        </h4>
 
-<% @posts.each do |post| %>
-  <div class="post">
-    <!-- 投稿テキストへのリンク -->
-    <h4><%= link_to post.text, post_path(post) %></h4>
+        <!-- 投稿に画像が添付されている場合、画像を表示 -->
+        <% if post.images.attached? %>
+          <div class="row">
+            <% post.images.each do |image| %>
+              <div class="col-12 col-md-4 mb-2">
+                <%= image_tag image, class: 'img-fluid rounded' %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
 
-    <!-- 投稿に画像が添付されている場合、画像を表示 -->
-    <% if post.images.attached? %>
-      <% post.images.each do |image| %>
-        <%= image_tag image %>
-      <% end %>
-    <% end %>
+        <!-- コメント数へのリンク -->
+        <p><%= link_to "#{post.comments.count} コメント", post_path(post.id), class: "text-muted" %></p>
 
-    <!-- コメント数へのリンク -->
-    <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
-
-    <!-- 編集ボタン（ログインユーザーが投稿したもののみ表示） -->
-    <% if post.user == current_user %>  <!-- 投稿がログインユーザーによって作成されたものである場合 -->
-      <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>  <!-- 編集ボタン -->
-      
-      <!-- 削除ボタン -->
-      <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>  <!-- 削除ボタン -->
-    <% end %>
-
-    <br>
-  </div>
-<% end %>
+        <!-- 編集ボタン（ログインユーザーが投稿したもののみ表示） -->
+        <% if post.user == current_user %>
+          <div class="btn-group" role="group">
+            <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>
+            <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
