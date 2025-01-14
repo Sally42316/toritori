@@ -1,34 +1,44 @@
-<h1>Welcome to the Post Feed</h1>
+<h1 class="text-center my-4">Welcome to the Post Feed</h1>
 
-<% @posts.each do |post| %>
-  <div class="post">
-    <% if post.user %> 
-      <p><strong><%= link_to post.user.name, user_path(post.user) %></strong> が投稿しました：</p>
-      <!-- post.text をクリック可能にして、投稿の show ページに遷移させる -->
-      <p><%= link_to post.text, post_path(post), style: "color: black;" %></p>
-    <% else %>
-      <p><strong>Already deleted</strong> が投稿しました：</p>
-      <!-- ユーザーが削除されている場合はリンクを表示しない -->
-      <p><%= post.text %></p>
-    <% end %>
-        <p><%= "#{post.comments.count} コメント" %></p>
+<div class="container">
+  <% @posts.each do |post| %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <% if post.user %> 
+          <h5 class="card-title">
+            <strong><%= link_to post.user.name, user_path(post.user), class: 'text-dark' %></strong> が投稿しました：
+          </h5>
+          <!-- post.text をクリック可能にして、投稿の show ページに遷移させる -->
+          <p class="card-text">
+            <%= link_to post.text, post_path(post), class: 'text-dark' %>
+          </p>
+        <% else %>
+          <h5 class="card-title"><strong>Already deleted</strong> が投稿しました：</h5>
+          <!-- ユーザーが削除されている場合はリンクを表示しない -->
+          <p class="card-text"><%= post.text %></p>
+        <% end %>
 
-    <% if post.images.attached? %> <!-- 画像が添付されているか確認 -->
-      <% post.images.each do |image| %> <!-- 画像をループで表示 -->
-        <%= image_tag image %> <!-- 画像を表示 -->
-      <% end %>
-    <% else %>
-      <!-- 画像がない場合のメッセージ -->
-    <% end %>
-        <p><%= post.created_at.in_time_zone('Asia/Tokyo').strftime("%Y-%m-%d %H:%M") %></p>
-    <!-- 編集ボタン（ログインユーザーが投稿したもののみ表示） -->
-    <% if post.user == current_user %>  <!-- 投稿がログインユーザーによって作成されたものである場合 -->
-      <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>  <!-- 編集ボタン -->
-      
-      <!-- 削除ボタン -->
-      <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>  <!-- 削除ボタン -->
-    <% end %>
-    
-    <br>
-  </div>
-<% end %>
+        <p class="text-muted"><%= "#{post.comments.count} コメント" %></p>
+
+        <% if post.images.attached? %> <!-- 画像が添付されているか確認 -->
+          <div class="row">
+            <% post.images.each do |image| %> <!-- 画像をループで表示 -->
+              <div class="col-12 col-md-4 mb-2">
+                <%= image_tag image, class: 'img-fluid rounded' %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <p class="text-muted mt-2"><%= post.created_at.in_time_zone('Asia/Tokyo').strftime("%Y-%m-%d %H:%M") %></p>
+        
+        <% if post.user == current_user %>  <!-- 投稿がログインユーザーによって作成されたものである場合 -->
+          <div class="btn-group" role="group">
+            <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>
+            <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
