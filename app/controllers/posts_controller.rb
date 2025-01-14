@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user, only: [:edit, :update, :destroy]
   def new
     @post = Post.new
   end
@@ -51,6 +53,18 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def authorize_user
+    # 現在のユーザーが投稿の所有者でなければアクセスを拒否
+    unless @post.user == current_user
+      redirect_to posts_path, alert: 'You are not authorized to edit this post.'
+    end
+  end
+
   # ストロングパラメータ
   def post_params
     params.require(:post).permit(:title, :text, images: []) # images: []で複数の画像を受け取る
