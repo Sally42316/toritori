@@ -3,7 +3,7 @@
 <% @posts.each do |post| %>
   <div class="post">
     <% if post.user %> 
-      <p><strong><%= post.user.name %></strong> が投稿しました：</p>
+      <p><strong><%= link_to post.user.name, user_path(post.user) %></strong> が投稿しました：</p>
       <!-- post.text をクリック可能にして、投稿の show ページに遷移させる -->
       <p><%= link_to post.text, post_path(post), style: "color: black;" %></p>
     <% else %>
@@ -20,8 +20,15 @@
     <% else %>
       <!-- 画像がない場合のメッセージ -->
     <% end %>
-
-    <p><%= post.created_at.in_time_zone('Asia/Tokyo').strftime("%Y-%m-%d %H:%M") %></p>
+        <p><%= post.created_at.in_time_zone('Asia/Tokyo').strftime("%Y-%m-%d %H:%M") %></p>
+    <!-- 編集ボタン（ログインユーザーが投稿したもののみ表示） -->
+    <% if post.user == current_user %>  <!-- 投稿がログインユーザーによって作成されたものである場合 -->
+      <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>  <!-- 編集ボタン -->
+      
+      <!-- 削除ボタン -->
+      <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>  <!-- 削除ボタン -->
+    <% end %>
+    
     <br>
   </div>
 <% end %>

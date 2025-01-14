@@ -15,8 +15,9 @@
   <ul style="list-style-type: none; padding-left: 0;">
   <% @user.posts.each do |post| %>
     <li>
-      <%= post.text %> <!-- 投稿内容 -->
-      
+      <!-- 投稿のテキストをリンクに変更して投稿詳細ページへ遷移 -->
+      <%= link_to post.text, post_path(post) %> <!-- 投稿の詳細ページへ遷移 -->
+
       <% if post.images.attached? %> <!-- 画像が添付されている場合 -->
         <% post.images.each do |image| %> <!-- 添付されている各画像を繰り返し表示 -->
           <%= image_tag image, style: "max-width: 100px; max-height: 100px;" %>
@@ -25,4 +26,4 @@
     </li>
   <% end %>
 </ul>
-<% end %> <!-- elseのend -->
+<% end %>

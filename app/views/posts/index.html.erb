@@ -5,15 +5,27 @@
 
 <% @posts.each do |post| %>
   <div class="post">
-    <h4><%= link_to post.text, edit_post_path(post) %></h4> <!-- ここをリンクに変更 -->
+    <!-- 投稿テキストへのリンク -->
+    <h4><%= link_to post.text, post_path(post) %></h4>
 
+    <!-- 投稿に画像が添付されている場合、画像を表示 -->
     <% if post.images.attached? %>
       <% post.images.each do |image| %>
         <%= image_tag image %>
       <% end %>
-    <% else %>
     <% end %>
+
+    <!-- コメント数へのリンク -->
     <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
+
+    <!-- 編集ボタン（ログインユーザーが投稿したもののみ表示） -->
+    <% if post.user == current_user %>  <!-- 投稿がログインユーザーによって作成されたものである場合 -->
+      <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>  <!-- 編集ボタン -->
+      
+      <!-- 削除ボタン -->
+      <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>  <!-- 削除ボタン -->
+    <% end %>
+
     <br>
   </div>
 <% end %>

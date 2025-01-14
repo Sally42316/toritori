@@ -4,7 +4,15 @@
 <h2>投稿を編集</h2>
 
 <%= form_for @post do |f| %>
-
+  <% if @post.errors.any? %>
+    <div class="error-messages">
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div>
     <%= f.label :text, "内容" %>
