@@ -1,9 +1,21 @@
-<h1>コメント詳細</h1>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="mb-4">コメント詳細</h1>
 
-<p><strong>投稿日時:</strong> <%= @comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
-<p><strong>投稿タイトル:</strong> <%= @comment.post.text %></p> <!-- コメントが関連する投稿のタイトルを表示 -->
-<p><strong>コメント内容:</strong> <%= @comment.comment %></p>
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <p><strong>投稿日時:</strong> <%= @comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+          <p><strong>投稿タイトル:</strong> <%= @comment.post.text %></p> <!-- コメントが関連する投稿のタイトルを表示 -->
+          <p><strong>コメント内容:</strong> <%= @comment.comment %></p>
 
-<%= link_to '戻る', admin_comments_path %>
+          <div class="d-flex justify-content-between mt-4">
+            <%= link_to '戻る', admin_comments_path, class: 'btn btn-secondary' %>
 
-<%= link_to 'コメント削除', admin_comment_path(@comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+            <%= link_to 'コメント削除', admin_comment_path(@comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

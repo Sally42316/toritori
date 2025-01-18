@@ -1,17 +1,33 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      
+      <!-- 投稿詳細 -->
+      <h2 class="mb-4">投稿一覧</h2>
 
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <p><%= @post.text %></p>
+          <%= link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+        </div>
+      </div>
 
-<p><%= @post.text %></p>
-<%= link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+      <!-- コメント一覧 -->
+      <h2 class="mb-4">コメント一覧</h2>
+      
+      <% @comments.each do |comment| %>
+        <div class="card shadow-sm mb-3">
+          <div class="card-body">
+            <p><strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %></p>
+            <p><%= comment.comment %></p>
+            <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+          </div>
+        </div>
+      <% end %>
 
-<h2>コメント一覧</h2>
-<% @comments.each do |comment| %>
-  <div class="comment">
-    <p><strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %></p>
-    <p><%= comment.comment %></p>
-    <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+      <!-- 戻るボタン -->
+      <%= link_to '戻る', admin_comments_path, class: 'btn btn-secondary mt-3' %>
+
+    </div>
   </div>
-<% end %>
-
-<%= link_to '戻る', admin_comments_path %> <!-- コメント一覧に戻るリンク -->
+</div>
