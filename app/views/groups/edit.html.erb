@@ -1,21 +1,28 @@
-<%= form_with model: @group, local: true do |f| %>
-    <div class="form-group">
-      <%= f.label :グループ名 %>
-      <%= f.text_field :name, class: 'form-control' %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="text-center mb-4">Create or Edit Group</h2>
+
+      <%= form_with model: @group, local: true do |f| %>
+        <div class="form-group mb-3">
+          <%= f.label :グループ名, class: 'form-label' %>
+          <%= f.text_field :name, class: 'form-control', placeholder: 'Enter group name' %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= f.label :紹介文, class: 'form-label' %>
+          <%= f.text_area :detail, class: 'form-control', rows: 5, placeholder: 'Write a brief description' %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= f.label :グループ画像, class: 'form-label' %>
+          <%= f.file_field :image, class: 'form-control-file', accept: 'image/*' %>
+        </div>
+
+        <div class="form-group text-center">
+          <%= f.submit 'Submit', class: 'btn btn-info btn-lg' %>
+        </div>
+      <% end %>
     </div>
-  
-    <div class="form-group">
-      <%= f.label :紹介文 %>
-      <%= f.text_area :detail, class: 'form-control' %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :グループ画像 %>
-      <%= f.file_field :image, class: "form-control-file", accept: 'image/*' %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.submit class: 'btn btn-info' %>
-    </div>
-  <% end %>
-  
+  </div>
+</div>
