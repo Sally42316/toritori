@@ -9,7 +9,9 @@
             <th class="text-center">Image</th>
             <th class="text-center">グループ名</th>
             <th class="text-center">紹介文</th>
-            <th class="text-center">Actions</th>
+            <% if @group.owner_id == current_user.id %> <!-- カレントユーザーがオーナーの場合のみ表示 -->
+              <th class="text-center">Actions</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -21,16 +23,31 @@
               <%= @group.name %>
             </td>
             <td><%= @group.detail %></td>
-            <% if @group.owner_id == current_user.id %>
+            <% if @group.owner_id == current_user.id %> <!-- カレントユーザーがオーナーの場合のみ表示 -->
               <td class="text-center">
                 <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success" %>
               </td>
-            <% else %>
-              <td class="text-center text-muted">N/A</td>
             <% end %>
           </tr>
         </tbody>
       </table>
+
+      <!-- ボタン条件 -->
+      <div class="text-center mt-4">
+        <% if @group.is_owned_by?(current_user) %>
+        <% elsif @group.includesUser?(current_user) %>
+          <%= link_to 'Leave this group', group_group_users_path(@group), method: :delete, class: "btn btn-sm btn-danger" %>
+        <% else %>
+          <%= link_to 'Join this group', group_group_users_path(@group), method: :post, class: "btn btn-sm btn-success" %>
+        <% end %>
+      </div>
+
+      <h4 class="mt-4">参加者一覧</h4>
+      <ul>
+        <% @group.users.each do |user| %>
+          <li style="list-style: none;"><%= user.name %></li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>

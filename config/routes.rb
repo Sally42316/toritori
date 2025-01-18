@@ -22,7 +22,9 @@ Rails.application.routes.draw do
 
   get "search" => "searches#search"
 
-  resources :groups, except: [:destroy]
+  resources :groups, only:  [:new, :index, :show, :create, :edit, :update] do
+    resource :group_users, only: [:create, :destroy]
+  end
 
   namespace :admin do
     # root to: 'homes#top'
