@@ -1,21 +1,25 @@
 class Group < ApplicationRecord
-        has_many :group_users, dependent: :destroy
-        belongs_to :owner, class_name: 'User'
-        has_many :users, through: :group_users, source: :user
-      
-        validates :name, presence: true
-        validates :detail, presence: true
-        has_one_attached :image
-        
-        def is_owned_by?(user)
-          owner.id == user.id
-        end
+  has_many :group_users, dependent: :destroy
+  has_many :users, through: :group_users, source: :user
+  belongs_to :owner, class_name: 'User' # オーナーはUserモデルに関連付け
 
-        def get_image
-            (image.attached?) ? image : 'no_image.jpg'
-        end
+  has_one_attached :image
 
-        def includesUser?(user)
-          group_users.exists?(user_id: user.id)
-        end
+  validates :name, presence: true
+  validates :detail, presence: true
+
+  # オーナー判定
+  def is_owned_by?(user)
+    owner_id == user.id
+  end
+
+  # グループ画像取得
+  def get_image
+    image.attached? ? image : 'no_image.jpg'
+  end
+
+  # 特定のユーザーがグループに含まれるか判定
+  def includesUser?(user)
+    group_users.exists?(user_id: user.id)
+  end
 end

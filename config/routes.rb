@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     passwords: "admin/passwords"
   }
 
-
   devise_for :users
 
   root to: 'homes#top'
@@ -15,25 +14,25 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update, :destroy, :index]
 
   resources :posts, only: [:new, :show, :edit, :update, :destroy, :index] do
-    # ここでpost_commentsなどをネストできます。
     resources :comments, only: [:create, :destroy]
   end
   post 'posts' => 'posts#create'
 
   get "search" => "searches#search"
 
-  resources :groups, only:  [:new, :index, :show, :create, :edit, :update] do
-    resource :group_users, only: [:create, :destroy]
+  resources :groups, only: [:new, :index, :show, :create, :edit, :update] do
+    resources :group_users, only: [:create, :destroy] do
+      member do
+        patch :approve  # 承認アクション
+      end
+    end
   end
 
   namespace :admin do
-    # root to: 'homes#top'
     get 'comments', to: 'homes#top'
     
-    resources :comments, only: [:index, :show, :destroy]  # コメント関連のリソース
-    resources :posts, only: [:show, :destroy] # 投稿詳細
-    resources :users, only: [:show, :index, :edit, :destroy] # 投稿詳細
-
-
+    resources :comments, only: [:index, :show, :destroy]  
+    resources :posts, only: [:show, :destroy]
+    resources :users, only: [:show, :index, :edit, :destroy]
   end
 end
