@@ -2,7 +2,7 @@ class Group < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :users, through: :group_users, source: :user
   belongs_to :owner, class_name: 'User' # オーナーはUserモデルに関連付け
-
+  has_many :chats, dependent: :destroy
   has_one_attached :image
 
   validates :name, presence: true, uniqueness: true

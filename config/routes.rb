@@ -27,6 +27,8 @@ Rails.application.routes.draw do
         delete :reject  # 拒否アクション（強制脱退）を追加
       end
     end
+    # チャットリソースのルート追加
+    resources :chats, only: [:index, :create]
   end
 
   namespace :admin do
