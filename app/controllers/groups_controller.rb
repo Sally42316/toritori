@@ -37,6 +37,16 @@ class GroupsController < ApplicationController
         render "edit"
       end
     end
+
+    def destroy
+      @group = Group.find(params[:id])
+      if @group.destroy
+        flash[:notice] = 'Group was successfully deleted.'
+      else
+        flash[:alert] = 'Failed to delete the group.'
+      end
+      redirect_to groups_path
+    end
   
     private
   
