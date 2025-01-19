@@ -3,8 +3,12 @@ class GroupsController < ApplicationController
     before_action :ensure_correct_user, only: [:edit, :update]
   
     def index
-      @groups = Group.all
-      @user = User.find(current_user.id)
+      if params[:q].present?
+        @groups = Group.search(params[:q])
+      else
+        @groups = Group.all
+      end
+      @user = current_user
     end
   
     def show

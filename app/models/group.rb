@@ -8,6 +8,11 @@ class Group < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :detail, presence: true
 
+  # 検索ロジック
+  def self.search(query)
+    where("name LIKE ? OR detail LIKE ?", "%#{sanitize_sql_like(query)}%", "%#{sanitize_sql_like(query)}%")
+  end
+
   # オーナー判定
   def is_owned_by?(user)
     owner_id == user.id
