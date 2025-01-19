@@ -16,6 +16,7 @@ class Admin::GroupsController < Admin::ApplicationController
       redirect_to admin_groups_path
     end
 
+
     private
 
     def set_group

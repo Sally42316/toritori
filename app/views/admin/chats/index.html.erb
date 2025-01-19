@@ -1,0 +1,19 @@
+<div id="chat-box" class="mb-4" style="max-height: 400px; overflow-y: scroll;">
+  <% @chats.each do |chat| %>
+    <div class="chat-message mb-3" style="display: flex; justify-content: <%= chat.user == current_user ? 'flex-end' : 'flex-start' %>;">
+      <div class="chat-bubble p-3 rounded position-relative" style="background-color: <%= chat.user == current_user ? '#dcf8c6' : '#f1f0f0' %>;">
+        
+        <% unless chat.user == current_user %>
+          <strong><%= chat.user.name %>: </strong>
+        <% end %>
+        
+        <%= chat.chat %>
+
+        <!-- 削除ボタン -->
+        <%= link_to 'Delete Chat', admin_group_chat_path(group_id: @group.id, id: chat.id), method: :delete %>
+
+
+      </div>
+    </div>
+  <% end %>
+</div>

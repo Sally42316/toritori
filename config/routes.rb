@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :show, :destroy]  
     resources :posts, only: [:show, :destroy]
     resources :users, only: [:show, :index, :edit, :destroy]
-    resources :groups, only: [:index, :destroy]
+    resources :groups, only: [:index, :destroy] do
+    resources :chats, only: [:index, :create, :destroy]
+  end
   end
 end

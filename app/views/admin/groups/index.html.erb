@@ -18,7 +18,9 @@
           <td class="text-center">
             <%= image_tag group.get_image, size: "50x50", class: "rounded-circle" %>
           </td>
-          <td><%= group.name %></td>
+          <td>
+  <%= link_to group.name, admin_group_chats_path(group), class: "text-decoration-none" %>
+</td>
           <td><%= group.detail %></td>
           <td><%= group.owner.name %></td>
           <td class="text-center"><%= group.approved_users_count %></td>
