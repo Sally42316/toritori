@@ -25,6 +25,6 @@ class Group < ApplicationRecord
 
   # 承認された参加者数を取得
   def approved_users_count
-    group_users.where(status: :approved).count
+    group_users.where(status: :approved).count + 1
   end
 end

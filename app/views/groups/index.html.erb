@@ -11,7 +11,6 @@
             <th class="text-center">グループ名</th>
             <th class="text-center">紹介文</th>
             <th class="text-center">参加者数</th> <!-- 参加者数列 -->
-            <th class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -25,13 +24,6 @@
               </td>
               <td><%= group.detail %></td>
               <td class="text-center"><%= group.approved_users_count %></td> <!-- 参加者数を承認されたユーザーのみに変更 -->
-              <% if group.owner_id == current_user.id %>
-                <td class="text-center">
-                  <%= link_to 'Edit', edit_group_path(group), class: "btn btn-sm btn-success" %>
-                </td>
-              <% else %>
-                <td class="text-center text-muted">N/A</td>
-              <% end %>
             </tr>
           <% end %>
         </tbody>

@@ -45,31 +45,42 @@
 
       <!-- オーナー用: 参加申請中のユーザーリスト -->
       <% if @group.is_owned_by?(current_user) %>
-  <h4 class="mt-4">参加申請中のユーザー</h4>
-  <ul>
-    <% @group.group_users.applying.each do |group_user| %>
-      <li>
-        <%= group_user.user.name %>
-        <%= link_to '承認', approve_group_group_user_path(@group, group_user), method: :patch, class: "btn btn-sm btn-success" %>
-        <%= link_to '拒否', reject_group_group_user_path(@group, group_user), method: :delete, class: "btn btn-sm btn-danger" %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+        <h4 class="mt-4">参加申請中のユーザー</h4>
+        <ul>
+          <% @group.group_users.applying.each do |group_user| %>
+            <li>
+              <%= group_user.user.name %>
+              <%= link_to '承認', approve_group_group_user_path(@group, group_user), method: :patch, class: "btn btn-sm btn-success" %>
+              <%= link_to '拒否', reject_group_group_user_path(@group, group_user), method: :delete, class: "btn btn-sm btn-danger" %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
 
       <h4 class="mt-4">参加者一覧</h4>
       <ul>
-      <% @group.users.joins(:group_users).where(group_users: { status: :approved }).each do |user| %>
         <li style="list-style: none;">
-          <%= user.name %>
-          
-          <% if @group.is_owned_by?(current_user) %>
-            <!-- 強制脱退ボタン -->
-            <%= link_to '強制脱退', reject_group_group_user_path(@group, user.group_users.find_by(group_id: @group.id)), method: :delete, class: "btn btn-sm btn-danger" %>
-          <% end %>
+        <p>オーナー：<%= @group.owner.name %></p> <!-- オーナー名の表示 -->
+          <!-- オーナーには強制脱退ボタンを表示しない -->
         </li>
-      <% end %>
-    </ul>
+
+        <% @group.users.joins(:group_users).where(group_users: { status: :approved }).each do |user| %>
+          <li style="list-style: none;">
+            <%= user.name %>
+
+            <% if @group.is_owned_by?(current_user) && user != @group.owner %>
+              <!-- 強制脱退ボタン -->
+              <%= link_to '強制脱退', reject_group_group_user_path(@group, user.group_users.find_by(group_id: @group.id)), method: :delete, class: "btn btn-sm btn-danger" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+      <!-- チャットページへの遷移ボタン -->
+      <div class="text-center mt-4">
+        <%= link_to 'Go to Chats', group_chats_path(@group), class: "btn btn-primary" %>
+      </div>
+
     </div>
   </div>
 </div>
