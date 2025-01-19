@@ -50,6 +50,9 @@
             <li>
               <%= link_to "users", admin_users_path, class: "nav-link text-light" %>
             </li>
+            <li>
+              <%= link_to "groups", admin_groups_path, class: "nav-link text-light" %>
+            </li>
           <% else %> <!-- ユーザーがサインインしていない場合 -->
             <li>
               <%= link_to about_path, class:"nav-link text-light" do %>
