@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :group_users, only: [:create, :destroy] do
       member do
         patch :approve  # 承認アクション
-        delete :reject  # 拒否アクションを追加
+        delete :reject  # 拒否アクション（強制脱退）を追加
       end
     end
   end

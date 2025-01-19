@@ -10,7 +10,7 @@
             <th class="text-center">Image</th>
             <th class="text-center">グループ名</th>
             <th class="text-center">紹介文</th>
-            <th class="text-center">参加者数</th> <!-- 新しい列追加 -->
+            <th class="text-center">参加者数</th> <!-- 参加者数列 -->
             <th class="text-center">Actions</th>
           </tr>
         </thead>
@@ -24,7 +24,7 @@
                 <%= link_to group.name, group_path(group), class: "text-decoration-none fw-bold" %>
               </td>
               <td><%= group.detail %></td>
-              <td class="text-center"><%= group.group_users.count %></td> <!-- 参加者数の表示 -->
+              <td class="text-center"><%= group.approved_users_count %></td> <!-- 参加者数を承認されたユーザーのみに変更 -->
               <% if group.owner_id == current_user.id %>
                 <td class="text-center">
                   <%= link_to 'Edit', edit_group_path(group), class: "btn btn-sm btn-success" %>

@@ -5,7 +5,7 @@ class Group < ApplicationRecord
 
   has_one_attached :image
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :detail, presence: true
 
   # オーナー判定
@@ -21,5 +21,10 @@ class Group < ApplicationRecord
   # 特定のユーザーがグループに含まれるか判定
   def includesUser?(user)
     group_users.exists?(user_id: user.id)
+  end
+
+  # 承認された参加者数を取得
+  def approved_users_count
+    group_users.where(status: :approved).count
   end
 end

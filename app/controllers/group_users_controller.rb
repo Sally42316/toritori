@@ -1,5 +1,5 @@
 class GroupUsersController < ApplicationController
-    before_action :authenticate_user!
+  before_action :authenticate_user!
   
   # 参加申請
   def create
@@ -41,14 +41,20 @@ class GroupUsersController < ApplicationController
     redirect_to request.referer
   end
 
-  # 拒否処理
+  # 拒否処理（強制脱退）
   def reject
     group_user = GroupUser.find_by(id: params[:id], group_id: params[:group_id])
-    if group_user&.destroy
-      flash[:notice] = '参加申請を拒否しました。'
+
+    if group_user
+      if group_user.destroy
+        flash[:notice] = '参加者をグループから強制脱退させました。'
+      else
+        flash[:alert] = '強制脱退に失敗しました。'
+      end
     else
-      flash[:alert] = '拒否に失敗しました。'
+      flash[:alert] = '指定された参加者が見つかりません。'
     end
+
     redirect_to request.referer
   end
 end
