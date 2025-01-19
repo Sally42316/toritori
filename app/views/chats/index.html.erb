@@ -22,7 +22,10 @@
                         word-wrap: break-word;
                         border: <%= chat.user == current_user ? 'none' : '2px solid black' %>;">
               
-              <strong><%= chat.user.name %>:</strong> <%= chat.chat %>
+              <% unless chat.user == current_user %>
+                <strong><%= chat.user.name %>:</strong>
+              <% end %>
+              <%= chat.chat %>
             </div>
           </div>
         <% end %>
