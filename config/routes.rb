@@ -20,10 +20,11 @@ Rails.application.routes.draw do
 
   get "search" => "searches#search"
 
-  resources :groups, only: [:new, :index, :show, :create, :edit, :update] do
+  resources :groups do
     resources :group_users, only: [:create, :destroy] do
       member do
         patch :approve  # 承認アクション
+        delete :reject  # 拒否アクションを追加
       end
     end
   end

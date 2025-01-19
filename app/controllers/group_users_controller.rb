@@ -40,4 +40,15 @@ class GroupUsersController < ApplicationController
     end
     redirect_to request.referer
   end
+
+  # 拒否処理
+  def reject
+    group_user = GroupUser.find_by(id: params[:id], group_id: params[:group_id])
+    if group_user&.destroy
+      flash[:notice] = '参加申請を拒否しました。'
+    else
+      flash[:alert] = '拒否に失敗しました。'
+    end
+    redirect_to request.referer
+  end
 end
