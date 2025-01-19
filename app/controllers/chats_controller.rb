@@ -20,6 +20,16 @@ class ChatsController < ApplicationController
     end
   end
 
+  def destroy
+    chat = @group.chats.find(params[:id])
+    if current_user == chat.user || @group.is_owned_by?(current_user)
+      chat.destroy
+      redirect_to group_chats_path(@group), notice: 'チャットを削除しました。'
+    else
+      redirect_to group_chats_path(@group), alert: '削除する権限がありません。'
+    end
+  end
+
   private
 
   def set_group

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       end
     end
     # チャットリソースのルート追加
-    resources :chats, only: [:index, :create]
+    resources :chats, only: [:index, :create, :destroy]
   end
 
   namespace :admin do
