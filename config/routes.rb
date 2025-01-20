@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     end
     # チャットリソースのルート追加
     resources :chats, only: [:index, :create, :destroy]
+    # 追加: 自分のグループ一覧を表示するルート
+    get 'my_groups', on: :collection
   end
 
   namespace :admin do

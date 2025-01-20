@@ -51,6 +51,11 @@ class GroupsController < ApplicationController
       end
       redirect_to groups_path
     end
+
+    def my_groups
+    # ユーザーが所属するグループを取得
+    @groups = current_user.groups # `current_user` はログインユーザーを指します
+    end
   
     private
   
