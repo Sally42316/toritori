@@ -8,6 +8,9 @@ class User < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
 
+  # プロフィール画像を扱うためにActiveStorageを設定
+  has_one_attached :avatar  # 画像アップロードの関連付け
+
 
   validates :name, presence: true
   validates :email, presence: true

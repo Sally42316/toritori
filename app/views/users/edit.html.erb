@@ -14,6 +14,15 @@
       <%= f.email_field :email, class: 'form-control' %>
     </div>
 
+    <!-- プロフィール画像 -->
+    <div class="form-group text-center">
+      <%= f.label :avatar, class: 'form-label' %><br>
+      <%= f.file_field :avatar, class: 'form-control-file' %>
+      <br>
+      <!-- 画像の表示 -->
+      <%= image_tag(@user.avatar.attached? ? @user.avatar : "no_image.jpg", size: "150x150", class: "img-fluid rounded-circle") %>
+    </div>
+
     <div class="form-group text-center">
       <%= f.submit 'Update Profile', class: 'btn btn-primary btn-lg' %>
     </div>

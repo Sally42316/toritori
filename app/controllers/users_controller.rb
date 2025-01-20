@@ -45,6 +45,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email)  # 編集可能な属性を指定
+    params.require(:user).permit(:name, :email, :avatar)  # 編集可能な属性を指定
   end
 end
