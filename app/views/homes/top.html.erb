@@ -30,14 +30,14 @@
 
         <!-- 画像が添付されている場合 -->
         <% if post.images.attached? %> 
-          <div class="row">
-            <% post.images.each do |image| %> 
-              <div class="col-12 col-md-4 mb-2">
-                <%= image_tag image, class: 'img-fluid rounded' %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+  <div class="row">
+    <% post.images.each do |image| %> 
+      <div class="col-12 col-md-4 mb-2">
+        <%= image_tag image, class: 'img-fluid rounded' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
         <!-- 投稿の作成日時 -->
         <p class="text-muted mt-2"><%= post.created_at.in_time_zone('Asia/Tokyo').strftime("%Y-%m-%d %H:%M") %></p>

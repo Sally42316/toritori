@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update, :destroy, :index]
 
   resources :posts, only: [:new, :show, :edit, :update, :destroy, :index] do
+    # 画像削除用のアクションを追加
+    member do
+      delete :remove_image
+    end
     resources :comments, only: [:create, :destroy]
   end
   post 'posts' => 'posts#create'
