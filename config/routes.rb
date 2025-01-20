@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:show, :destroy]
     resources :users, only: [:show, :index, :edit, :destroy]
     resources :groups, only: [:index, :destroy] do
-    resources :chats, only: [:index, :create, :destroy]
-  end
+      resources :chats, only: [:index, :create, :destroy]
+    end
   end
 end

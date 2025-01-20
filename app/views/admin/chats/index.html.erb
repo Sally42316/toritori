@@ -1,19 +1,27 @@
 <div id="chat-box" class="mb-4" style="max-height: 400px; overflow-y: scroll;">
   <% @chats.each do |chat| %>
-    <div class="chat-message mb-3" style="display: flex; justify-content: <%= chat.user == current_user ? 'flex-end' : 'flex-start' %>;">
-      <div class="chat-bubble p-3 rounded position-relative" style="background-color: <%= chat.user == current_user ? '#dcf8c6' : '#f1f0f0' %>;">
+    <div class="chat-message mb-3 d-flex justify-content-center">
+      <div class="chat-bubble p-3 rounded position-relative" style="background-color: <%= chat.user == current_user ? '#dcf8c6' : '#f1f0f0' %>; max-width: 70%; border-radius: 20px; word-wrap: break-word;">
         
         <% unless chat.user == current_user %>
-          <strong><%= chat.user.name %>: </strong>
+          <div class="username text-center mb-1">
+            <strong>
+              <!-- ユーザー名をクリックするとadmin/users/:idに遷移 -->
+              <%= link_to chat.user.name, admin_user_path(chat.user.id), class: "text-decoration-none" %>
+            </strong>
+          </div>
         <% end %>
         
-        <%= chat.chat %>
-
-        <!-- 削除ボタン -->
-        <%= link_to 'Delete Chat', admin_group_chat_path(group_id: @group.id, id: chat.id), method: :delete %>
-
-
+        <div class="message-text text-center">
+          <%= chat.chat %>
+        </div>
+        
       </div>
     </div>
   <% end %>
+</div>
+
+<!-- 戻るボタン -->
+<div class="d-flex justify-content-center mt-3">
+  <%= link_to 'Back to Groups', admin_groups_path, class: 'btn btn-primary' %>
 </div>

@@ -5,6 +5,16 @@ class Admin::GroupsController < Admin::ApplicationController
 
     def index
       @groups = Group.all
+
+      # グループ名で検索
+    if params[:search].present?
+      @groups = @groups.where("name LIKE ?", "%#{params[:search]}%")
+    end
+
+    # オーナー名で検索
+    if params[:owner_name].present?
+      @groups = @groups.joins(:owner).where("users.name LIKE ?", "%#{params[:owner_name]}%")
+    end
     end
 
     def destroy

@@ -1,4 +1,5 @@
 class Admin::ChatsController < Admin::ApplicationController
+    layout "application"
     before_action :set_group
 
     # GET /admin/groups/:group_id/chats
