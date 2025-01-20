@@ -36,7 +36,7 @@ class ChatsController < ApplicationController
     @group = Group.find(params[:group_id])
     # ユーザーがグループのメンバー、またはオーナーであるか確認
     unless @group.users.include?(current_user) || @group.is_owned_by?(current_user)
-      redirect_to groups_path, alert: 'You are not a member of this group.'
+      redirect_to groups_path, alert: 'あなたはグループメンバーではありません'
     end
   end
 

@@ -45,9 +45,9 @@ class GroupsController < ApplicationController
     def destroy
       @group = Group.find(params[:id])
       if @group.destroy
-        flash[:notice] = 'Group was successfully deleted.'
+        flash[:notice] = 'グループを削除完了'
       else
-        flash[:alert] = 'Failed to delete the group.'
+        flash[:alert] = 'グループを削除不可'
       end
       redirect_to groups_path
     end

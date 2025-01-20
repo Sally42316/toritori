@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
      # ２．投稿が正常に保存できた場合
      if @post.save
-       redirect_to root_path, notice: 'Post was successfully created.'
+       redirect_to root_path, notice: '投稿しました'
      else
       flash[:alert] = @post.errors.full_messages.to_sentence # エラーメッセージをフラッシュに設定
        render :new
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
     # 投稿を更新
     if @post.update(post_params)
       # 更新成功時は投稿詳細ページにリダイレクト
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to @post, notice: '更新成功'
     else
       # 更新失敗時は編集ページを再表示
       render :edit
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_path, notice: 'Post was successfully deleted.'
+    redirect_to posts_path, notice: '削除完了'
   end
 
   private
@@ -61,7 +61,7 @@ class PostsController < ApplicationController
   def authorize_user
     # 現在のユーザーが投稿の所有者でなければアクセスを拒否
     unless @post.user == current_user
-      redirect_to posts_path, alert: 'You are not authorized to edit this post.'
+      redirect_to posts_path, alert: '編集権限がありません'
     end
   end
 

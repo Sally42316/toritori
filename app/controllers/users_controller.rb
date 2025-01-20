@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user  # ログインしているユーザーを取得
     if @user.update(user_params)  # ユーザー情報を更新
-      redirect_to @user, notice: 'Profile updated successfully'
+      redirect_to @user, notice: '更新完了'
     else
       # 更新に失敗した場合、エラーメッセージを表示
       flash.now[:alert] = @user.errors.full_messages.to_sentence
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def destroy
     @user = current_user
     @user.destroy  # ユーザーを物理的に削除
-    redirect_to new_user_registration_path, notice: 'Your account has been deleted'
+    redirect_to new_user_registration_path, notice: 'アカウント削除完了'
   end
 
   private
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def authorize_user
     unless current_user == @user
-      redirect_to root_path, alert: 'You are not authorized to edit this profile.'
+      redirect_to root_path, alert: '編集権限がありません'
     end
   end
 
