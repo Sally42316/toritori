@@ -3,23 +3,24 @@
 <h1 class="text-center my-4">Welcome to the Post Feed</h1>
 
 <div class="container">
+  <!-- ログインしている場合のみ並び替えボタンを表示 -->
+  <% if user_signed_in? %>
+    <div class="text-end mb-3">
+      <%= link_to 'いいね数順に並べ替え', posts_path(sort: 'likes'), class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
+
   <% @posts.each do |post| %>
     <div class="card mb-4">
       <div class="card-body">
         <% if post.user %> 
-          <!-- 投稿者情報 -->
           <div class="d-flex align-items-center mb-3">
-            <!-- 投稿者のアバター画像 -->
             <%= image_tag(post.user.avatar.attached? ? post.user.avatar : "no_image.jpg", size: "40x40", class: "rounded-circle me-3") %>
             <h5 class="card-title">
               <strong><%= link_to post.user.name, user_path(post.user), class: 'text-dark' %></strong> が投稿しました：
             </h5>
           </div>
-
-          <!-- 投稿内容 -->
-          <p class="card-text">
-            <%= link_to post.text, post_path(post), class: 'text-dark' %>
-          </p>
+          <p class="card-text"><%= link_to post.text, post_path(post), class: 'text-dark' %></p>
         <% else %>
           <h5 class="card-title"><strong>Already deleted</strong> が投稿しました：</h5>
           <p class="card-text"><%= post.text %></p>
@@ -28,27 +29,40 @@
         <!-- コメント数 -->
         <p class="text-muted"><%= "#{post.comments.count} コメント" %></p>
 
-        <!-- 画像が添付されている場合 -->
+        <!-- いいね数 -->
+        <p class="text-muted"><%= "#{post.likes.count} いいね" %></p>  <!-- いいねの数を表示 -->
+
         <% if post.images.attached? %> 
-  <div class="row">
-    <% post.images.each do |image| %> 
-      <div class="col-12 col-md-4 mb-2">
-        <%= image_tag image, class: 'img-fluid rounded' %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
-        <!-- 投稿の作成日時 -->
-        <p class="text-muted mt-2"><%= post.created_at.in_time_zone('Asia/Tokyo').strftime("%Y-%m-%d %H:%M") %></p>
-
-        <!-- 投稿者が現在のユーザーの場合 -->
-        <% if post.user == current_user %>  
-          <div class="btn-group" role="group">
-            <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>
-            <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+          <div class="row">
+            <% post.images.each do |image| %> 
+              <div class="col-12 col-md-4 mb-2">
+                <%= image_tag image, class: 'img-fluid rounded' %>
+              </div>
+            <% end %>
           </div>
         <% end %>
+
+        <p class="text-muted mt-2"><%= post.created_at.in_time_zone('Asia/Tokyo').strftime("%Y-%m-%d %H:%M") %></p>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <!-- ログインしている場合のみいいねボタンを表示 -->
+            <% if user_signed_in? %>  <!-- ここでログイン状態を確認 -->
+              <% if post.liked_by?(current_user) %>
+                <%= link_to 'いいね解除', post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'btn btn-danger' %>
+              <% else %>
+                <%= link_to 'いいね', post_likes_path(post), method: :post, class: 'btn btn-primary' %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <% if post.user == current_user %>  
+            <div class="btn-group" role="group">
+              <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>
+              <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   <% end %>

@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
 
   # プロフィール画像を扱うためにActiveStorageを設定
   has_one_attached :avatar  # 画像アップロードの関連付け

@@ -2,8 +2,14 @@ class Post < ApplicationRecord
     belongs_to :user
     has_many_attached :images # 複数画像の添付を許可
     has_many :comments, dependent: :destroy
+    has_many :likes, dependent: :destroy
 
     validates :text, presence: true
+
+    # いいねされているかチェック
+  def liked_by?(user)
+    likes.exists?(user: user)
+  end
 
     # 検索方法分岐
   def self.looks(search, word)
