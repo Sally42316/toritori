@@ -7,7 +7,13 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = current_user.posts
+    if params[:sort] == 'likes'
+      # いいね数順に並べ替え（left_joinsを使うことでいいね数0の投稿も含める）
+      @posts = Post.left_joins(:likes).group(:id).order('COUNT(likes.id) DESC')
+    else
+      # デフォルトは投稿日時順
+      @posts = Post.all.order(created_at: :desc)
+    end
   end
 
   def show

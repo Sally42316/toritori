@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'likes/create'
+  get 'likes/destroy'
   devise_for :admins, path: 'admin', controllers: {
     sessions: "admin/sessions",
     registrations: "admin/registrations",
@@ -19,6 +21,9 @@ Rails.application.routes.draw do
       delete :remove_image
     end
     resources :comments, only: [:create, :destroy]
+
+    # いいね機能用のルーティング追加
+    resources :likes, only: [:create, :destroy]
   end
   post 'posts' => 'posts#create'
 
