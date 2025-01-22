@@ -8,8 +8,12 @@ ja:
   activerecord:
     models:
       post: "投稿"
+      group: "グループ"
     attributes:
       post:
         title: "タイトル"
         text: "本文"
         images: "画像"
+      group:  # groupモデルのカラム名を日本語で定義
+        name: "グループ名"
+        detail: "紹介文"
