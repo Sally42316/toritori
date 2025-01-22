@@ -1,0 +1,15 @@
+ja:
+  hello: "こんにちは"
+  errors:
+    messages:
+      blank: "を入力してください"
+      too_long: "は%{count}文字以内で入力してください"
+      too_short: "は%{count}文字以上で入力してください"
+  activerecord:
+    models:
+      post: "投稿"
+    attributes:
+      post:
+        title: "タイトル"
+        text: "本文"
+        images: "画像"

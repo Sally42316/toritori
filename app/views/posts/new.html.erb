@@ -5,13 +5,14 @@
   <%= form_with model: @post, html: { class: 'needs-validation', novalidate: true } do |f| %>
     
     <div class="form-group">
-      <h4>本文</h4>
-      <%= f.text_area :text, class: "form-control", rows: 5 %>
+      <%= f.label :text, "投稿内容" %>
+      <%= f.text_area :text, placeholder: '投稿内容を入力してください', class: "form-control", rows: 5 %>
     </div>
 
     <div class="form-group">
       <h4>画像を選択</h4>
       <%= f.file_field :images, multiple: true, class: 'form-control-file' %>
+      <%= f.label :images, "画像（複数選択可）" %>
     </div>
 
     <div class="form-group text-center">
