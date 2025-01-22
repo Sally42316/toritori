@@ -1,0 +1,30 @@
+ja:
+  hello: "こんにちは"
+  errors:
+    messages:
+      blank: "を入力してください"
+      too_long: "は%{count}文字以内で入力してください"
+      too_short: "は%{count}文字以上で入力してください"
+  devise:
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+      user:
+        signed_in: "ユーザーがログインしました"
+        signed_out: "ユーザーがログアウトしました"
+    registrations:
+      signed_up: "アカウント登録が完了しました"
+      updated: "アカウント情報が更新されました"
+      destroyed: "アカウントが削除されました"
+  activerecord:
+    models:
+      post: "投稿"
+      group: "グループ"
+    attributes:
+      post:
+        title: "タイトル"
+        text: "本文"
+        images: "画像"
+      group:  # groupモデルのカラム名を日本語で定義
+        name: "グループ名"
+        detail: "紹介文"

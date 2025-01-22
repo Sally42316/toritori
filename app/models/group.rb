@@ -5,8 +5,8 @@ class Group < ApplicationRecord
   has_many :chats, dependent: :destroy
   has_one_attached :image
 
-  validates :name, presence: true, uniqueness: true
-  validates :detail, presence: true
+  validates :name, presence: { message: 'を入力してください' }, uniqueness: true
+  validates :detail, presence: { message: 'を入力してください' }
 
   # 検索ロジック
   def self.search(query)

@@ -4,7 +4,7 @@ class Post < ApplicationRecord
     has_many :comments, dependent: :destroy
     has_many :likes, dependent: :destroy
 
-    validates :text, presence: true
+    validates :text, presence: { message: :blank }
 
     # いいねされているかチェック
   def liked_by?(user)
