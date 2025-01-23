@@ -68,4 +68,3 @@ gem "net-imap"
 
 gem 'rails-i18n', '~> 6.0'
 
-gem 'jquery-rails'
