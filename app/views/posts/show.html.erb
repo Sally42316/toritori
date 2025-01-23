@@ -29,7 +29,7 @@
   <div id="comments" class="mt-4">
   <p>コメント件数：<%= @post.comments.count %></p>
   <% @post.comments.each do |comment| %>
-    <div class="card mb-3" id="comment_<%= comment.id %>">
+    <div id="comment_<%= comment.id %>" class="card mb-3">
       <div class="card-body">
         <p>
           <strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %>
