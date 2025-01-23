@@ -26,26 +26,26 @@
   <% end %>
 
   <!-- コメントセクション -->
-  <div class="mt-4">
-    <p>コメント件数：<%= @post.comments.count %></p>
-    <% @post.comments.each do |comment| %>
-      <div class="card mb-3">
-        <div class="card-body">
-          <p>
-            <strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %>
-            <% if comment.user == current_user %>
-              <%= link_to "削除", post_comment_path(@post, comment), method: :delete, class: "btn btn-danger btn-sm ml-2", data: { confirm: '本当に削除しますか？' } %>
-            <% end %>
-          </p>
-          <p><%= comment.comment %></p>
-        </div>
+  <div id="comments" class="mt-4">
+  <p>コメント件数：<%= @post.comments.count %></p>
+  <% @post.comments.each do |comment| %>
+    <div id="comment_<%= comment.id %>" class="card mb-3">
+      <div class="card-body">
+        <p>
+          <strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %>
+          <% if comment.user == current_user %>
+            <%= link_to "削除", post_comment_path(@post, comment), method: :delete, class: "btn btn-danger btn-sm ml-2", data: { confirm: '本当に削除しますか？' }, remote: true %>
+          <% end %>
+        </p>
+        <p><%= comment.comment %></p>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+</div>
 
   <!-- コメント投稿フォーム -->
   <div class="mt-4">
-    <%= form_with model: [@post, @comment], class: "form" do |f| %>
+    <%= form_with model: [@post, @comment], class: "form", local: false do |f| %>
       <div class="form-group">
         <%= f.text_area :comment, rows: '5', class: "form-control", placeholder: "コメントをここに" %>
       </div>
