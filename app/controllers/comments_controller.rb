@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     if @comment.save
       # コメントが保存された場合、非同期通信で新しいコメントを返す
       respond_to do |format|
-        format.js  # コメントが投稿されたことを反映させるJSファイルを呼び出す
+        format.js # コメントが投稿されたことを反映させるJSファイルを呼び出す
       end
     else
       # エラーが発生した場合

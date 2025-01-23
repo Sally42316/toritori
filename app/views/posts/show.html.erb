@@ -45,7 +45,7 @@
 
   <!-- コメント投稿フォーム -->
   <div class="mt-4">
-    <%= form_with model: [@post, @comment], class: "form", remote: true do |f| %>
+    <%= form_with model: [@post, @comment], class: "form", local: false do |f| %>
       <div class="form-group">
         <%= f.text_area :comment, rows: '5', class: "form-control", placeholder: "コメントをここに" %>
       </div>

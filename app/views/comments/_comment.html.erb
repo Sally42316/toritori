@@ -1,0 +1,11 @@
+<div id="comment_<%= @comment.id %>" class="card mb-3">
+<div class="card-body">
+  <p>
+    <strong><%= @comment.user.name %></strong> - <%= @comment.created_at.strftime('%Y/%m/%d') %>
+    <% if @comment.user == current_user %>
+      <%= link_to "削除", post_comment_path(@post, @comment), method: :delete, class: "btn btn-danger btn-sm ml-2", data: { confirm: '本当に削除しますか？' }, remote: true %>
+    <% end %>
+  </p>
+  <p><%= @comment.comment %></p>
+</div>
+</div>
