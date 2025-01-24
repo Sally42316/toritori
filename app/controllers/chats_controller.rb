@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-    before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_group
 
   def index
@@ -12,6 +12,18 @@ class ChatsController < ApplicationController
     @chat = @group.chats.build(chat_params)
     @chat.user = current_user
 
+    # もしメッセージに住所が含まれていれば、Geocoding APIで緯度経度を取得
+    if @chat.chat.include?('住所:')
+      address = @chat.chat.split('住所:').last.strip
+      geocode_result = Geocoder.search(address).first
+
+      if geocode_result
+        @chat.latitude = geocode_result.latitude
+        @chat.longitude = geocode_result.longitude
+      end
+    end
+
+    # チャットメッセージを保存
     if @chat.save
       redirect_to group_chats_path(@group)
     else
@@ -41,6 +53,7 @@ class ChatsController < ApplicationController
   end
 
   def chat_params
-    params.require(:chat).permit(:chat)
+    # メッセージのみを許可しているため、位置情報（latitude, longitude）も許可する必要があります
+    params.require(:chat).permit(:chat, :latitude, :longitude)
   end
 end
