@@ -1,6 +1,6 @@
-const { environment } = require('@rails/webpacker')
+require('dotenv').config(); // dotenvの設定を追加
 
-module.exports = environment
+const { environment } = require('@rails/webpacker')
 
 const webpack = require('webpack')
 environment.plugins.prepend(
@@ -11,3 +11,5 @@ environment.plugins.prepend(
     Popper: 'popper.js'
   })
 )
+
+module.exports = environment
