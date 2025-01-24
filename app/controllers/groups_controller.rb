@@ -53,8 +53,8 @@ class GroupsController < ApplicationController
     end
 
     def my_groups
-    # ユーザーが所属するグループを取得
-    @groups = current_user.groups # `current_user` はログインユーザーを指します
+      # ユーザーが参加しているグループと作成したグループを両方取得
+      @groups = current_user.groups + Group.where(owner_id: current_user.id)
     end
   
     private
