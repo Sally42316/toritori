@@ -56,9 +56,18 @@
 
         <!-- 住所入力フィールドを追加 -->
         <div class="form-group">
-          <%= form.text_field :address, placeholder: "住所を入力", class: "form-control" %> <!-- 住所入力フィールド -->
+          <%= form.text_field :address, id: "address", placeholder: "住所を入力", class: "form-control" %> <!-- 住所入力フィールド -->
         </div>
-        
+
+        <!-- 郵便番号フィールドを追加 -->
+        <div class="form-group">
+          <%= form.text_field :zipcode, id: "zipcode", placeholder: "郵便番号", class: "form-control" %>
+        </div>
+
+        <!-- 隠しフィールドで緯度・経度を保存 -->
+        <%= form.hidden_field :latitude, id: "latitude" %>
+        <%= form.hidden_field :longitude, id: "longitude" %>
+
         <div class="form-group text-center">
           <%= form.submit "送信", class: "btn btn-primary" %>
         </div>
@@ -73,7 +82,7 @@
 
   <!-- Google Maps JavaScript API の読み込み -->
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['Maps_API_Key'] %>&callback=initMap">
   </script>
 
   <script>
@@ -97,3 +106,34 @@
     }
   </script>
 <% end %>
+
+<!-- jQueryとjpostal.jsの読み込み -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-jpostal-ja@2.14.45/jquery.jpostal.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // 住所入力フォームに対してjpostalを有効化
+    $("#address").jpostal({
+      postcode: ["#zipcode"], // 郵便番号を自動入力
+      address: ["#address"]  // 住所を自動入力
+    });
+
+    // 住所が変更されたときに緯度・経度を自動取得
+    $("#address").on('change', function() {
+      var address = $(this).val();
+
+      // Google Maps Geocoding APIを使って住所から緯度経度を取得
+      $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=<%= ENV['Maps_API_Key'] %>`, function(data) {
+        if (data.status === "OK") {
+          var latitude = data.results[0].geometry.location.lat;
+          var longitude = data.results[0].geometry.location.lng;
+
+          // 取得した緯度・経度をフォームの隠しフィールドに設定
+          $("#latitude").val(latitude);
+          $("#longitude").val(longitude);
+        }
+      });
+    });
+  });
+</script>
