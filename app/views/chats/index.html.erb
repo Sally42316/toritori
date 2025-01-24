@@ -62,15 +62,23 @@
   </div>
 </div>
 
-<!-- JavaScriptコード -->
+<!-- Google Maps APIの読み込み -->
+<script async defer 
+  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
+</script>
+
+<!-- 地図の初期化関数 -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  // Google Maps APIが読み込まれた後に呼ばれる
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 35.6762, lng: 139.6503 }, // 初期位置: 東京
+      zoom: 13
+    });
+
+    // 郵便番号入力フォームの処理
     const postalCodeInput = document.getElementById('postal_code');
     const addressInput = document.getElementById('address');
-    const map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 35.6762, lng: 139.6503 }, // 東京の初期位置
-      zoom: 13,
-    });
     const geocoder = new google.maps.Geocoder();
 
     postalCodeInput.addEventListener('input', function() {
@@ -103,9 +111,5 @@
         addressInput.value = ''; // 郵便番号が7桁でない場合は住所をクリア
       }
     });
-  });
-</script>
-
-<script async defer 
-  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>">
+  }
 </script>
