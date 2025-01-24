@@ -8,6 +8,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12 col-md-8">
+      
       <!-- チャットメッセージ表示部分 -->
       <div id="chat-box" class="mb-4" style="max-height: 400px; overflow-y: scroll;">
         <% @chats.each do |chat| %>
@@ -26,6 +27,31 @@
                 <strong><%= chat.user.name %>:</strong>
               <% end %>
               <%= chat.chat %>
+
+              <!-- 住所が入力されていればその住所を表示 -->
+              <% if chat.address.present? %>
+                <p>場所: <%= chat.address %></p>
+                <div id="map_<%= chat.id %>" style="height: 200px; width: 100%;"></div>
+                <script>
+                  function initMap<%= chat.id %>() {
+                    const map = new google.maps.Map(document.getElementById("map_<%= chat.id %>"), {
+                      center: { lat: <%= chat.latitude %>, lng: <%= chat.longitude %> },
+                      zoom: 12,
+                    });
+                    const marker = new google.maps.Marker({
+                      position: { lat: <%= chat.latitude %>, lng: <%= chat.longitude %> },
+                      map: map,
+                    });
+                  }
+
+                  // Google Maps APIを非同期に読み込む
+                  const script = document.createElement('script');
+                  script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap<%= chat.id %>";
+                  script.async = true;
+                  script.defer = true;
+                  document.body.appendChild(script);
+                </script>
+              <% end %>
 
               <!-- 削除ボタン -->
               <% if current_user == chat.user || @group.is_owned_by?(current_user) %>
@@ -46,10 +72,17 @@
         <div class="form-group">
           <%= form.text_area :chat, rows: 3, placeholder: "メッセージを入力...", class: "form-control" %>
         </div>
+
+        <!-- 住所入力欄を追加 -->
+        <div class="form-group">
+          <%= form.text_field :address, placeholder: "場所の住所を入力", class: "form-control" %>
+        </div>
+
         <div class="form-group text-center">
           <%= form.submit "送信", class: "btn btn-primary" %>
         </div>
       <% end %>
+
     </div>
   </div>
 </div>
