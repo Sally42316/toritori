@@ -32,25 +32,6 @@
               <% if chat.address.present? %>
                 <p>場所: <%= chat.address %></p>
                 <div id="map_<%= chat.id %>" style="height: 200px; width: 100%;"></div>
-                <script>
-                  function initMap<%= chat.id %>() {
-                    const map = new google.maps.Map(document.getElementById("map_<%= chat.id %>"), {
-                      center: { lat: <%= chat.latitude %>, lng: <%= chat.longitude %> },
-                      zoom: 12,
-                    });
-                    const marker = new google.maps.Marker({
-                      position: { lat: <%= chat.latitude %>, lng: <%= chat.longitude %> },
-                      map: map,
-                    });
-                  }
-
-                  // Google Maps APIを非同期に読み込む
-                  const script = document.createElement('script');
-                  script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap<%= chat.id %>";
-                  script.async = true;
-                  script.defer = true;
-                  document.body.appendChild(script);
-                </script>
               <% end %>
 
               <!-- 削除ボタン -->
@@ -86,3 +67,27 @@
     </div>
   </div>
 </div>
+
+<script>
+  function initMap() {
+    <% @chats.each do |chat| %>
+      <% if chat.address.present? %>
+        const map = new google.maps.Map(document.getElementById("map_<%= chat.id %>"), {
+          center: { lat: <%= chat.latitude %>, lng: <%= chat.longitude %> },
+          zoom: 12,
+        });
+        const marker = new google.maps.Marker({
+          position: { lat: <%= chat.latitude %>, lng: <%= chat.longitude %> },
+          map: map,
+        });
+      <% end %>
+    <% end %>
+  }
+
+  // Google Maps APIを非同期に読み込む
+  const script = document.createElement('script');
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCa6D2bafkz0Ma9gFY9dBEN_ouhIWh9j2A&callback=initMap";
+  script.async = true;
+  script.defer = true;
+  document.body.appendChild(script);
+</script>
