@@ -53,6 +53,12 @@
         <div class="form-group">
           <%= form.text_area :chat, rows: 3, placeholder: "メッセージを入力...", class: "form-control" %>
         </div>
+
+        <!-- 住所入力フィールドを追加 -->
+        <div class="form-group">
+          <%= form.text_field :address, placeholder: "住所を入力", class: "form-control" %> <!-- 住所入力フィールド -->
+        </div>
+        
         <div class="form-group text-center">
           <%= form.submit "送信", class: "btn btn-primary" %>
         </div>
@@ -67,7 +73,7 @@
 
   <!-- Google Maps JavaScript API の読み込み -->
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['Maps_API_Key'] %>&callback=initMap">
   </script>
 
   <script>

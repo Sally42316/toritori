@@ -12,10 +12,9 @@ class ChatsController < ApplicationController
     @chat = @group.chats.build(chat_params)
     @chat.user = current_user
 
-    # もしメッセージに住所が含まれていれば、Geocoding APIで緯度経度を取得
-    if @chat.chat.include?('住所:')
-      address = @chat.chat.split('住所:').last.strip
-      geocode_result = Geocoder.search(address).first
+    # 住所がある場合、Geocoding APIで緯度経度を取得
+    if @chat.address.present?
+      geocode_result = Geocoder.search(@chat.address).first
 
       if geocode_result
         @chat.latitude = geocode_result.latitude
@@ -53,7 +52,7 @@ class ChatsController < ApplicationController
   end
 
   def chat_params
-    # メッセージのみを許可しているため、位置情報（latitude, longitude）も許可する必要があります
-    params.require(:chat).permit(:chat, :latitude, :longitude)
+    # メッセージ、住所（address）を許可
+    params.require(:chat).permit(:chat, :latitude, :longitude, :address)
   end
 end
