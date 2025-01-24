@@ -53,6 +53,6 @@ class ChatsController < ApplicationController
 
   def chat_params
     # メッセージ、住所（address）を許可
-    params.require(:chat).permit(:chat, :latitude, :longitude, :address)
+    params.require(:chat).permit(:chat, :latitude, :longitude, :address, :zipcode)
   end
 end
