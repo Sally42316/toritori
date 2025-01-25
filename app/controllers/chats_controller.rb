@@ -9,8 +9,6 @@ class ChatsController < ApplicationController
   end
 
   def create
-    # `chat_params`に`address`を追加してチャットを作成
-    # @chat = @group.chats.build(chat_params.merge(address: params[:chat][:address]))
     if chat_params[:address].present? && chat_params[:postal_code].present?
       chat = "#{chat_params[:chat]}" + "#{chat_params[:postal_code]}" + "#{chat_params[:address]}"
       @chat = @group.chats.new(chat: chat)
