@@ -3,7 +3,6 @@ class ChatsController < ApplicationController
   before_action :set_group
 
   def index
-    # グループ内の全てのチャットを取得
     @chats = @group.chats.includes(:user).order(created_at: :asc)
     @chat = Chat.new
   end
@@ -39,14 +38,12 @@ class ChatsController < ApplicationController
 
   def set_group
     @group = Group.find(params[:group_id])
-    # ユーザーがグループのメンバー、またはオーナーであるか確認
     unless @group.users.include?(current_user) || @group.is_owned_by?(current_user)
       redirect_to groups_path, alert: 'あなたはグループメンバーではありません'
     end
   end
 
   def chat_params
-    # `address`を許可する
-    params.require(:chat).permit(:chat, :address, :postal_code)
+    params.require(:chat).permit(:chat, :address, :postal_code, :parent_chat_id)
   end
 end
