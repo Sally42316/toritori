@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-    before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_group
 
   def index
@@ -9,7 +9,12 @@ class ChatsController < ApplicationController
   end
 
   def create
-    @chat = @group.chats.build(chat_params)
+    if chat_params[:address].present? && chat_params[:postal_code].present?
+      chat = "#{chat_params[:chat]}" + "#{chat_params[:postal_code]}" + "#{chat_params[:address]}"
+      @chat = @group.chats.new(chat: chat)
+    else
+      @chat = @group.chats.new(chat: chat_params[:chat])
+    end
     @chat.user = current_user
 
     if @chat.save
@@ -41,6 +46,7 @@ class ChatsController < ApplicationController
   end
 
   def chat_params
-    params.require(:chat).permit(:chat)
+    # `address`を許可する
+    params.require(:chat).permit(:chat, :address, :postal_code)
   end
 end
