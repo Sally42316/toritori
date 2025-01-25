@@ -91,6 +91,8 @@
             if (data.status === 'OK') {
               const location = data.results[0].geometry.location;
               const address = data.results[0].formatted_address;
+              console.log(location)
+              console.log(address)
 
               // 住所とマップを更新
               addressInput.value = address;
@@ -113,3 +115,4 @@
     });
   }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-jpostal-ja@2.14.45/jquery.jpostal.min.js"></script>

@@ -10,7 +10,13 @@ class ChatsController < ApplicationController
 
   def create
     # `chat_params`に`address`を追加してチャットを作成
-    @chat = @group.chats.build(chat_params.merge(address: params[:chat][:address]))
+    # @chat = @group.chats.build(chat_params.merge(address: params[:chat][:address]))
+    if chat_params[:address].present? && chat_params[:postal_code].present?
+      chat = "#{chat_params[:chat]}" + "#{chat_params[:postal_code]}" + "#{chat_params[:address]}"
+      @chat = @group.chats.new(chat: chat)
+    else
+      @chat = @group.chats.new(chat: chat_params[:chat])
+    end
     @chat.user = current_user
 
     if @chat.save
@@ -43,6 +49,6 @@ class ChatsController < ApplicationController
 
   def chat_params
     # `address`を許可する
-    params.require(:chat).permit(:chat, :address)
+    params.require(:chat).permit(:chat, :address, :postal_code)
   end
 end
