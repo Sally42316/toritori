@@ -62,40 +62,27 @@
   </div>
 </div>
 
-<!-- Google Maps APIの読み込み -->
-<script async defer 
-  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
-</script>
-
-<!-- 地図の初期化関数 -->
 <script>
-  // Google Maps APIが読み込まれた後に呼ばれる
-  function initMap() {
-    const map = new google.maps.Map(document.getElementById("map"), {
+function initMap(){
+  const map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 35.6762, lng: 139.6503 }, // 初期位置: 東京
       zoom: 13
     });
 
-    // 郵便番号入力フォームの処理
-    const postalCodeInput = document.getElementById('postal_code');
+const postalCodeInput = document.getElementById('postal_code');
     const addressInput = document.getElementById('address');
     const geocoder = new google.maps.Geocoder();
 
     postalCodeInput.addEventListener('input', function() {
+      console.log(addressInput.value)
       const postalCode = postalCodeInput.value.trim();
-
-      if (postalCode.length === 7) {  // 郵便番号が7桁の場合に処理
+      if (postalCode.length === 7) {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.status === 'OK') {
+        .then(response => response.json())
+        .then(data => {
+        if (data.status === 'OK') {
+              console.log(data.results[0])
               const location = data.results[0].geometry.location;
-              const address = data.results[0].formatted_address;
-              console.log(location)
-              console.log(address)
-
-              // 住所とマップを更新
-              addressInput.value = address;
               map.setCenter(location);
               new google.maps.Marker({
                 map: map,
@@ -104,15 +91,12 @@
             } else {
               addressInput.value = '住所が見つかりません';
             }
-          })
-          .catch(error => {
-            console.error('Geocoding API error:', error);
-            addressInput.value = 'エラーが発生しました';
-          });
+        })
       } else {
-        addressInput.value = ''; // 郵便番号が7桁でない場合は住所をクリア
+        addressInput.value = '';
       }
     });
-  }
+}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-jpostal-ja@2.14.45/jquery.jpostal.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>
+
