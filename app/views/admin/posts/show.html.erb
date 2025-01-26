@@ -3,14 +3,16 @@
     <div class="col-md-8 offset-md-2">
       
       <!-- 投稿詳細 -->
-      <h2 class="mb-4">Post Detail</h2>
+      <h2 class="mb-4">投稿詳細</h2>
 
       <div class="card shadow-sm mb-4">
-        <div class="card-body">
-          <p><%= @post.text %></p>
-          <%= link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-        </div>
-      </div>
+  <div class="card-body">
+    <!-- 投稿者名の表示 -->
+    <p><strong><%= @post.user.name %></strong> - <%= @post.created_at.strftime('%Y/%m/%d') %></p>
+    <p><%= @post.text %></p>
+    <%= link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+  </div>
+</div>
 
       <!-- コメント一覧 -->
       <h2 class="mb-4">コメント一覧</h2>

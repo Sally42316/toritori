@@ -7,7 +7,7 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def index
-    @users = User.where.not(id: current_admin.id) # 現在ログインしている管理者のアカウントを除外
+    @users = User.all
   end
 
   def edit
