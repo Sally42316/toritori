@@ -33,3 +33,16 @@ Xをメインに検索をかけると関係のない情報も拾ってしまう�
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
 - IDE：Cloud9
+​
+## 使用素材
+- フリーイラスト素材として以下を使用<br>
+いらすとや(https://www.irasutoya.com/)
+
+## テストデータ（seeds.rb）の利用について
+- seeds.rbのコメントアウトを解除
+- $ rails db:reset
+- 本番環境の場合: $ rails db:seed RAILS_ENV=production
+- テストデータが使用できるようになります。
+- テストデータを使用しないときは
+- seeds.rbをコメントアウト
+- $ rails db:migrate:reset です
