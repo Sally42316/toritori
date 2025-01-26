@@ -16,6 +16,14 @@ ja:
       signed_up: "アカウント登録が完了しました"
       updated: "アカウント情報が更新されました"
       destroyed: "アカウントが削除されました"
+    failure:
+      unauthenticated: "登録又はログインが必要です"
+      not_found_in_database: "データベースにユーザーが見つかりません"
+      admin:
+        not_found_in_database: "管理者ユーザーが見つかりません"
+      already_authenticated: "すでにログインしています"
+      admin:
+        already_authenticated: "管理者はすでにログインしています"
   activerecord:
     models:
       post: "投稿"

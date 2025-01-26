@@ -18,6 +18,13 @@ lucas = User.find_or_create_by!(email: "lucas@example.com") do |user|
     user.password = "password"
     user.avatar = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user3.jpg"), filename: "sample-user3.jpg")
 end
+
+# adminユーザーの作成
+admin = Admin.find_or_create_by(email: "admin@admin.com") do |admin|
+    # パスワード設定は Devise の登録用に必要
+    admin.password = "adminadmin"
+    admin.password_confirmation = "adminadmin"
+  end
   
 # 投稿の作成
 post_1 = Post.find_or_create_by!(user: olivia) do |post|
