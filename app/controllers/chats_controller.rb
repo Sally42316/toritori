@@ -10,7 +10,7 @@ class ChatsController < ApplicationController
 
   def create
     if chat_params[:address].present? && chat_params[:postal_code].present?
-      chat = "#{chat_params[:chat]}" + "#{chat_params[:postal_code]}" + "#{chat_params[:address]}"
+      chat = "#{chat_params[:chat]}\n〒#{chat_params[:postal_code]}/#{chat_params[:address]}"
       @chat = @group.chats.new(chat: chat)
     else
       @chat = @group.chats.new(chat: chat_params[:chat])
@@ -39,14 +39,12 @@ class ChatsController < ApplicationController
 
   def set_group
     @group = Group.find(params[:group_id])
-    # ユーザーがグループのメンバー、またはオーナーであるか確認
     unless @group.users.include?(current_user) || @group.is_owned_by?(current_user)
       redirect_to groups_path, alert: 'あなたはグループメンバーではありません'
     end
   end
 
   def chat_params
-    # `address`を許可する
-    params.require(:chat).permit(:chat, :address, :postal_code)
+    params.require(:chat).permit(:chat, :address, :postal_code, :parent_chat_id)
   end
 end
