@@ -10,7 +10,7 @@ class ChatsController < ApplicationController
 
   def create
     if chat_params[:address].present? && chat_params[:postal_code].present?
-      chat = "#{chat_params[:chat]}" + "#{chat_params[:postal_code]}" + "#{chat_params[:address]}"
+      chat = "#{chat_params[:chat]}\n〒#{chat_params[:postal_code]}/#{chat_params[:address]}"
       @chat = @group.chats.new(chat: chat)
     else
       @chat = @group.chats.new(chat: chat_params[:chat])
