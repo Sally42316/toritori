@@ -21,8 +21,6 @@ ja:
       not_found_in_database: "データベースにユーザーが見つかりません"
       admin:
         not_found_in_database: "管理者ユーザーが見つかりません"
-      already_authenticated: "すでにログインしています"
-      admin:
         already_authenticated: "管理者はすでにログインしています"
   activerecord:
     models:
