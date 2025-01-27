@@ -76,9 +76,18 @@
         <% end %>
       </ul>
 
+      <!-- 承認待ちメッセージ -->
+      <% if @group.group_users.exists?(user_id: current_user.id, status: :applying) %>
+        <div class="alert alert-warning text-center mt-4">
+          あなたはまだ承認待ちです。承認されるまでお待ちください。
+        </div>
+      <% end %>
+
       <!-- チャットページへの遷移ボタン -->
       <div class="text-center mt-4">
-        <%= link_to 'Go to Chats', group_chats_path(@group), class: "btn btn-primary" %>
+        <% if @group.is_owned_by?(current_user) || @group.users.joins(:group_users).where(group_users: { status: :approved }).include?(current_user) %>
+          <%= link_to 'Go to Chats', group_chats_path(@group), class: "btn btn-primary" %>
+        <% end %>
       </div>
 
     </div>

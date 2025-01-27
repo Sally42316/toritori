@@ -13,8 +13,7 @@ class GroupsController < ApplicationController
   
     def show
       @group = Group.find(params[:id])
-      @users = @group.users
-      # @user = User.find(params[:id])
+      @user = User.find(params[:id])
     end
   
     def new
