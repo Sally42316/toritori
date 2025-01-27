@@ -5,7 +5,7 @@
 <div class="container">
   <% if user_signed_in? %>
     <div class="text-end mb-3">
-      <%= link_to 'いいね数順に並べ替え', posts_path(sort: 'likes'), class: 'btn btn-secondary' %>
+      <%= link_to 'いいね数順に並べ替え', root_path(sort: 'likes'), class: 'btn btn-secondary' %>
     </div>
   <% end %>
 
