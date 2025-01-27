@@ -78,7 +78,7 @@ const postalCodeInput = document.getElementById('postal_code');
       console.log(addressInput.value)
       const postalCode = postalCodeInput.value.trim();
       if (postalCode.length === 7) {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=<%= Rails.application.credentials.google_map_api_key %>`)
         .then(response => response.json())
         .then(data => {
         if (data.status === 'OK') {
@@ -99,5 +99,5 @@ const postalCodeInput = document.getElementById('postal_code');
     });
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_map_api_key %>&callback=initMap" async defer></script>
 
