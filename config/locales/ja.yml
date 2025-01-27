@@ -18,6 +18,7 @@ ja:
       destroyed: "アカウントが削除されました"
     failure:
       unauthenticated: "登録又はログインが必要です"
+      not_found_in_database: "データベースにユーザーが見つかりません"
       user:
         not_found_in_database: "ユーザーが見つかりません"
       admin:
