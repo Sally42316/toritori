@@ -1,8 +1,8 @@
-<h1 class="text-center my-4">投稿詳細</h1>
+<h1 class="text-center my-4">Post Detail</h1>
 
 <div class="container">
-  <% if @post.user == current_user %>  <!-- 投稿者がカレントユーザーの場合のみ表示 -->
     <p>投稿者: <%= link_to @post.user.name, user_path(@post.user), class: "text-primary" %></p> <!-- クリックでユーザーの詳細ページへ遷移 -->
+    <% if @post.user == current_user %>  <!-- 投稿者がカレントユーザーの場合のみ表示 -->
     <h4>
       <%= link_to @post.text, edit_post_path(@post), style: "color: black;" %> <!-- 編集リンク -->
     </h4>
