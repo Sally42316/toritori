@@ -8,6 +8,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   def index
     @users = User.all
+    Rails.logger.debug "Users: #{@users.inspect}"
   end
 
   def edit
