@@ -82,9 +82,10 @@ Chat.find_or_create_by!(user_id: lucas.id, group_id: group_3.id) do |chat|
 end
   
 # いいねの作成
-Like.find_or_create_by!(user_id: olivia.id, post_id: post_1.id)
+Like.find_or_create_by!(user_id: olivia.id, post_id: post_3.id)
+Like.find_or_create_by!(user_id: olivia.id, post_id: post_2.id)
 Like.find_or_create_by!(user_id: james.id, post_id: post_2.id)
-Like.find_or_create_by!(user_id: lucas.id, post_id: post_3.id)
+Like.find_or_create_by!(user_id: lucas.id, post_id: post_1.id)
   
 # コメントの作成
 Comment.find_or_create_by!(user_id: olivia.id, post_id: post_3.id) do |comment|
