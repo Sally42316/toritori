@@ -4,9 +4,9 @@ class GroupsController < ApplicationController
   
     def index
       if params[:q].present?
-        @groups = Group.search(params[:q])
+        @groups = Group.search(params[:q]).where.not(owner_id: User.where(is_deleted: true).pluck(:id)) # オーナーが削除されていないグループを取得
       else
-        @groups = Group.all
+        @groups = Group.where.not(owner_id: User.where(is_deleted: true).pluck(:id)) # オーナーが削除されていないグループを取得
       end
       @user = current_user
     end
@@ -54,7 +54,8 @@ class GroupsController < ApplicationController
 
     def my_groups
       # ユーザーが参加しているグループと作成したグループを両方取得
-      @groups = current_user.groups + Group.where(owner_id: current_user.id)
+      # オーナーが削除されていないグループのみを取得
+      @groups = current_user.groups + Group.where(owner_id: current_user.id).where.not(owner_id: User.where(is_deleted: true).pluck(:id))
     end
   
     private

@@ -58,23 +58,29 @@
       <% end %>
 
       <h4 class="mt-4">参加者一覧</h4>
-      <ul>
-        <li style="list-style: none;">
-        <p>オーナー：<%= @group.owner.name %></p> <!-- オーナー名の表示 -->
-          <!-- オーナーには強制脱退ボタンを表示しない -->
-        </li>
+<ul>
+  <li style="list-style: none;">
+    <p>オーナー：<%= @group.owner.name %></p> <!-- オーナー名の表示 -->
+    <!-- オーナーには強制脱退ボタンを表示しない -->
+  </li>
 
-        <% @group.users.joins(:group_users).where(group_users: { status: :approved }).each do |user| %>
-          <li style="list-style: none;">
-            <%= user.name %>
+  <% @group.users.joins(:group_users).where(group_users: { status: :approved }).each do |user| %>
+    <li style="list-style: none;">
+      <% if user.is_deleted %>
+        <!-- is_deletedがtrueなら「already deleted」と表示 -->
+        <%= "already deleted" %>
+      <% else %>
+        <%= user.name %>
+      <% end %>
 
-            <% if @group.is_owned_by?(current_user) && user != @group.owner %>
-              <!-- 強制脱退ボタン -->
-              <%= link_to '強制脱退', reject_group_group_user_path(@group, user.group_users.find_by(group_id: @group.id)), method: :delete, class: "btn btn-sm btn-danger" %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
+      <% if @group.is_owned_by?(current_user) && user != @group.owner %>
+        <!-- 強制脱退ボタン -->
+        <%= link_to '強制脱退', reject_group_group_user_path(@group, user.group_users.find_by(group_id: @group.id)), method: :delete, class: "btn btn-sm btn-danger" %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
 
       <!-- 承認待ちメッセージ -->
       <% if @group.group_users.exists?(user_id: current_user.id, status: :applying) %>
