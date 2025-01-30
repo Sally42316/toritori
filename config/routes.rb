@@ -56,6 +56,10 @@ Rails.application.routes.draw do
     get 'my_groups', on: :collection
   end
 
+
+
+
+
   # 管理者用ネームスペース
   namespace :admin do
     get 'comments', to: 'homes#top'
@@ -67,11 +71,15 @@ Rails.application.routes.draw do
     resources :posts, only: [:show, :destroy]
 
     # ユーザー関連
-    resources :users, only: [:show, :index, :edit, :destroy]
+    resources :users, only: [:show, :index, :edit, :destroy] do
+      member do
+        patch :restore  # 会員復帰用ルート
+      end
+    end
 
     # グループ関連
     resources :groups, only: [:index, :destroy] do
       resources :chats, only: [:index, :create, :destroy]
-    end
   end
+end
 end
