@@ -3,36 +3,44 @@
 <h1 class="text-center my-4">My Post</h1>
 
 <div class="container">
-  <% @posts.each do |post| %>
-    <div class="card mb-4">
-      <div class="card-body">
-        <!-- 投稿テキストへのリンク -->
-        <h4 class="card-title">
-          <%= link_to post.text, post_path(post), class: "text-dark" %>
-        </h4>
+<% @posts.each do |post| %>
+  <div class="card mb-4">
+    <div class="card-body">
+      <!-- 投稿テキストへのリンク -->
+      <h4 class="card-title">
+        <%= link_to post.text, post_path(post), class: "text-dark" %>
+      </h4>
 
-        <!-- 投稿に画像が添付されている場合、画像を表示 -->
-        <% if post.images.attached? %>
-          <div class="row">
-            <% post.images.each do |image| %>
-              <div class="col-12 col-md-4 mb-2">
-                <%= image_tag image, class: 'img-fluid rounded' %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+      <!-- 投稿者が削除されている場合 -->
+      <% if post.user.is_deleted? %>
+        <p class="text-muted">This post was created by a deleted user</p>
+      <% else %>
+        <!-- 投稿者が削除されていない場合 -->
+        <p class="text-muted"><%= post.user.name %></p>
+      <% end %>
 
-        <!-- コメント数へのリンク -->
-        <p><%= link_to "#{post.comments.count} コメント", post_path(post.id), class: "text-muted" %></p>
+      <!-- 投稿に画像が添付されている場合、画像を表示 -->
+      <% if post.images.attached? %>
+        <div class="row">
+          <% post.images.each do |image| %>
+            <div class="col-12 col-md-4 mb-2">
+              <%= image_tag image, class: 'img-fluid rounded' %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
 
-        <!-- 編集ボタン（ログインユーザーが投稿したもののみ表示） -->
-        <% if post.user == current_user %>
-          <div class="btn-group" role="group">
-            <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>
-            <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-          </div>
-        <% end %>
-      </div>
+      <!-- コメント数へのリンク -->
+      <p><%= link_to "#{post.comments.count} コメント", post_path(post.id), class: "text-muted" %></p>
+
+      <!-- 編集ボタン（ログインユーザーが投稿したもののみ表示） -->
+      <% if post.user == current_user %>
+        <div class="btn-group" role="group">
+          <%= link_to '編集', edit_post_path(post), class: 'btn btn-primary' %>
+          <%= link_to '削除', post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+        </div>
+      <% end %>
     </div>
+  </div>
   <% end %>
 </div>

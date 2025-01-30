@@ -28,8 +28,9 @@ class UsersController < ApplicationController
 
   def destroy
     @user = current_user
-    @user.destroy  # ユーザーを物理的に削除
-    redirect_to new_user_registration_path, notice: 'アカウント削除完了'
+    @user.update(is_deleted: true)  # 論理削除
+    sign_out_and_redirect @user  # 削除後にサインアウトしてリダイレクト
+    flash[:notice] = 'アカウント削除完了'
   end
 
   private

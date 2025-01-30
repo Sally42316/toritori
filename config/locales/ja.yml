@@ -21,6 +21,7 @@ ja:
       not_found_in_database: "データベースにユーザーが見つかりません"
       user:
         not_found_in_database: "ユーザーが見つかりません"
+        deleted: 'アカウントは削除されているため、ログインできません。'
       admin:
         not_found_in_database: "管理者ユーザーが見つかりません"
         already_authenticated: "管理者はすでにログインしています"
