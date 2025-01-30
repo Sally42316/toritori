@@ -1,16 +1,26 @@
 <div class="container mt-4">
 
-  <!-- ユーザー情報 -->
-  <div class="card mb-4">
-    <div class="card-header">
-      <h1 class="h3"><%= @user.name %>の情報</h1>
-    </div>
-    <div class="card-body">
-      <p><strong>Name:</strong> <%= @user.name %></p>
-      <p><strong>Email:</strong> <%= @user.email %></p>
-      <%= link_to 'Delete Account', admin_user_path(@user), method: :delete, data: { confirm: 'Are you sure you want to delete your account?' }, class: 'btn btn-danger' %>
-    </div>
+<!-- ユーザー情報 -->
+<div class="card mb-4">
+  <div class="card-header">
+    <h1 class="h3"><%= @user.name %>の情報</h1>
+    <!-- ステータス表示 -->
+    <p class="text-dark">
+      <% if @user.is_deleted %>
+        <strong>ステータス:</strong> 退会済み
+        <!-- 会員復帰ボタン -->
+        <%= link_to '会員復帰', restore_admin_user_path(@user), method: :patch, class: 'btn btn-success mt-2' %>
+      <% else %>
+        <strong>ステータス:</strong> 現行会員
+      <% end %>
+    </p>
   </div>
+  <div class="card-body">
+    <p><strong>Name:</strong> <%= @user.name %></p>
+    <p><strong>Email:</strong> <%= @user.email %></p>
+    <%= link_to 'Delete Account', admin_user_path(@user), method: :delete, data: { confirm: 'Are you sure you want to delete your account?' }, class: 'btn btn-danger' %>
+  </div>
+</div>
 
   <!-- 投稿一覧 -->
   <div class="card mb-4">

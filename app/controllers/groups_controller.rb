@@ -8,12 +8,19 @@ class GroupsController < ApplicationController
       else
         @groups = Group.where.not(owner_id: User.where(is_deleted: true).pluck(:id)) # オーナーが削除されていないグループを取得
       end
+      
+      # オーナーがnilの場合や削除されているグループを除外
+      @groups = @groups.reject { |group| group.owner.nil? || group.owner.is_deleted? }
+    
       @user = current_user
     end
   
     def show
       @group = Group.find(params[:id])
-      @user = User.find(params[:id])
+      if @group.owner.nil? || @group.owner.is_deleted?
+        @group.destroy
+        redirect_to groups_path, notice: 'オーナーが削除されているため、グループは削除されました。'
+      end
     end
   
     def new
