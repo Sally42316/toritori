@@ -12,46 +12,46 @@
       <div id="chat-box" class="mb-4" style="max-height: 400px; overflow-y: scroll;">
       <% @chats.each do |chat| %>
         <div class="chat-message mb-3" 
-             style="display: flex; 
-                    justify-content: <%= chat.user == current_user ? 'flex-end' : 'flex-start' %>;
-                    align-items: flex-end;">
-          
-          <div class="chat-bubble p-3 rounded" 
-               style="max-width: 70%; 
-                      background-color: <%= chat.user == current_user ? '#dcf8c6' : '#f1f0f0' %>;
-                      word-wrap: break-word;
-                      border: <%= chat.user == current_user ? 'none' : '2px solid black' %>;">
-          
-            <% if chat.user.is_deleted? %>
-              <strong>already deleted:</strong>
-            <% else %>
-              <% group_user = @group.group_users.find_by(user: chat.user) %>
-              <% if group_user.nil? %>
-                <strong>already left:</strong>
-              <% else %>
-                <% unless group_user.approved? %>
-                  <strong>already left:</strong>
-                <% else %>
-                  <% unless chat.user == current_user %>
-                    <strong><%= chat.user.name %>:</strong>
-                  <% end %>
-                <% end %>
-              <% end %>
-            <% end %>
-            
-            <pre><%= chat.chat %></pre>
-      
-            <!-- 削除ボタン -->
-            <% if current_user == chat.user || @group.is_owned_by?(current_user) %>
-              <div class="text-right mt-2">
-                <%= link_to '削除', group_chat_path(@group, chat), 
-                            method: :delete, 
-                            data: { confirm: '本当に削除しますか？' }, 
-                            class: 'btn btn-sm btn-danger' %>
-              </div>
-            <% end %>
-          </div>
-        </div>
+     style="display: flex; 
+            justify-content: <%= chat.user == current_user ? 'flex-end' : 'flex-start' %>;
+            align-items: flex-end;">
+  
+  <div class="chat-bubble p-3 rounded" 
+       style="max-width: 70%; 
+              background-color: <%= chat.user == current_user ? '#dcf8c6' : '#f1f0f0' %>;
+              word-wrap: break-word;
+              border: <%= chat.user == current_user ? 'none' : '2px solid black' %>;">
+  
+    <% if chat.user.nil? || chat.user.is_deleted? %>
+      <strong>already deleted:</strong>
+    <% else %>
+      <% group_user = @group.group_users.find_by(user: chat.user) %>
+      <% if group_user.nil? %>
+        <strong>already left:</strong>
+      <% else %>
+        <% unless group_user.approved? %>
+          <strong>already left:</strong>
+        <% else %>
+          <% unless chat.user == current_user %>
+            <strong><%= chat.user.name %>:</strong>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    
+    <pre><%= chat.chat %></pre>
+
+    <!-- 削除ボタン -->
+    <% if current_user == chat.user || @group.is_owned_by?(current_user) %>
+      <div class="text-right mt-2">
+        <%= link_to '削除', group_chat_path(@group, chat), 
+                    method: :delete, 
+                    data: { confirm: '本当に削除しますか？' }, 
+                    class: 'btn btn-sm btn-danger' %>
+      </div>
+    <% end %>
+  </div>
+</div>
       <% end %>
       
       </div>
