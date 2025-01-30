@@ -31,7 +31,13 @@
     <div id="comment_<%= comment.id %>" class="card mb-3">
       <div class="card-body">
         <p>
-          <strong><%= comment.user.name %></strong> - <%= comment.created_at.strftime('%Y/%m/%d') %>
+          <strong>
+            <% if comment.user.is_deleted? %>
+              <span class="text-danger">already deleted</span> <!-- 削除されたユーザーの場合 -->
+            <% else %>
+              <%= comment.user.name %> <!-- 通常のユーザー名 -->
+            <% end %>
+          </strong> - <%= comment.created_at.strftime('%Y/%m/%d') %>
           <% if comment.user == current_user %>
             <%= link_to "削除", post_comment_path(@post, comment), method: :delete, class: "btn btn-danger btn-sm ml-2", data: { confirm: '本当に削除しますか？' }, remote: true %>
           <% end %>
