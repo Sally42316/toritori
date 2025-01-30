@@ -67,8 +67,11 @@
   <% @group.users.joins(:group_users).where(group_users: { status: :approved }).each do |user| %>
     <li style="list-style: none;">
       <% if user.is_deleted %>
-        <!-- is_deletedがtrueなら「already deleted」と表示 -->
+      <!-- 削除されたユーザーの場合「already deleted」と表示 -->
         <%= "already deleted" %>
+<% elsif user.group_users.find_by(group_id: @group.id).status != 'approved' %>
+        <!-- 承認されていないユーザーの場合「already left」と表示 -->
+        <%= "already left" %>
       <% else %>
         <%= user.name %>
       <% end %>
