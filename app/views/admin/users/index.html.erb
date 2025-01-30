@@ -1,11 +1,11 @@
 <div class="container mt-4">
-
   <h1 class="mb-4">一般ユーザー一覧</h1>
 
   <table class="table table-bordered">
     <thead>
       <tr class="bg-dark text-white">
         <th scope="col">ユーザー名</th>
+        <th scope="col">ステータス</th>
         <th scope="col">詳細</th>
       </tr>
     </thead>
@@ -13,6 +13,13 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= user.name %></td>
+          <td>
+            <% if user.is_deleted %>
+              <span class="badge bg-danger text-white">退会済み</span>
+            <% else %>
+              現行会員
+            <% end %>
+          </td>
           <td>
             <%= link_to '詳細', admin_user_path(user), class: 'btn btn-primary btn-sm' %>
           </td>

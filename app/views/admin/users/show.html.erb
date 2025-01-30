@@ -4,6 +4,14 @@
   <div class="card mb-4">
     <div class="card-header">
       <h1 class="h3"><%= @user.name %>の情報</h1>
+      <!-- ステータス表示 -->
+      <p class="text-dark">
+        <% if @user.is_deleted %>
+          <strong>ステータス:</strong> 退会済み
+        <% else %>
+          <strong>ステータス:</strong> 現行会員
+        <% end %>
+      </p>
     </div>
     <div class="card-body">
       <p><strong>Name:</strong> <%= @user.name %></p>
