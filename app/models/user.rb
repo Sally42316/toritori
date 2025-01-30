@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :posts, dependent: :destroy
@@ -12,7 +10,6 @@ class User < ApplicationRecord
 
   # プロフィール画像を扱うためにActiveStorageを設定
   has_one_attached :avatar  # 画像アップロードの関連付け
-
 
   validates :name, presence: true
   validates :email, presence: true
@@ -37,6 +34,16 @@ class User < ApplicationRecord
       # 他の場合は全件取得
       User.all
     end
+  end
+
+  # ユーザーが削除されている場合はログインできないようにする
+  def active_for_authentication?
+    super && !is_deleted  # is_deletedがtrueならログインできない
+  end
+
+  # 削除されたユーザーには特別なメッセージを表示
+  def inactive_message
+    is_deleted ? :deleted : super
   end
 
 
