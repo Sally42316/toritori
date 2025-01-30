@@ -15,7 +15,7 @@
              style="display: flex; 
                     justify-content: <%= chat.user == current_user ? 'flex-end' : 'flex-start' %>;
                     align-items: flex-end;">
-      
+          
           <div class="chat-bubble p-3 rounded" 
                style="max-width: 70%; 
                       background-color: <%= chat.user == current_user ? '#dcf8c6' : '#f1f0f0' %>;
@@ -25,8 +25,17 @@
             <% if chat.user.is_deleted? %>
               <strong>already deleted:</strong>
             <% else %>
-              <% unless chat.user == current_user %>
-                <strong><%= chat.user.name %>:</strong>
+              <% group_user = @group.group_users.find_by(user: chat.user) %>
+              <% if group_user.nil? %>
+                <strong>already left:</strong>
+              <% else %>
+                <% unless group_user.approved? %>
+                  <strong>already left:</strong>
+                <% else %>
+                  <% unless chat.user == current_user %>
+                    <strong><%= chat.user.name %>:</strong>
+                  <% end %>
+                <% end %>
               <% end %>
             <% end %>
             
