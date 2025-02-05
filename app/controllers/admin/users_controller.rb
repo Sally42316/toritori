@@ -17,8 +17,14 @@ class Admin::UsersController < Admin::ApplicationController
   def destroy
     @user = User.find(params[:id])
 
-    # 外部キー制約を無効にする
-    ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = OFF;")
+    # MySQLかSQLiteかで外部キー制約を無効にする方法を変更
+    if ActiveRecord::Base.connection.adapter_name == 'Mysql2'
+      # MySQLの場合
+      ActiveRecord::Base.connection.execute("SET foreign_key_checks = 0;")
+    elsif ActiveRecord::Base.connection.adapter_name == 'SQLite'
+      # SQLiteの場合
+      ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = OFF;")
+    end
 
     # まず関連するレコードを削除
     @user.posts.destroy_all
@@ -27,8 +33,14 @@ class Admin::UsersController < Admin::ApplicationController
     # ユーザーを物理削除
     @user.destroy
 
-    # 外部キー制約を再度有効にする
+   # 外部キー制約を再度有効にする
+   if ActiveRecord::Base.connection.adapter_name == 'Mysql2'
+    # MySQLの場合
+    ActiveRecord::Base.connection.execute("SET foreign_key_checks = 1;")
+  elsif ActiveRecord::Base.connection.adapter_name == 'SQLite'
+    # SQLiteの場合
     ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = ON;")
+  end
 
     redirect_to admin_comments_path, notice: 'ユーザーが削除されました。'
   end
