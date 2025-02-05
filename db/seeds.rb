@@ -1,5 +1,8 @@
 # db/seeds.rb
 
+ActiveRecord::Base.connection.execute("PRAGMA busy_timeout = 5000") # 5秒待機
+
+
 # ユーザーの作成
 olivia = User.find_or_create_by!(email: "olivia@example.com") do |user|
     user.name = "Olivia"
