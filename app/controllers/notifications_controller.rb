@@ -27,9 +27,8 @@ class NotificationsController < ApplicationController
     redirect_to post_path(@notification.notifiable)
   when 'comment'
     redirect_to post_path(@notification.notifiable.post)  # 投稿に関連する場合はこのまま
-    # コメント詳細ページに遷移したい場合は以下のように変更
-    # redirect_to comment_path(@notification.notifiable)  # コメントに関連する場合
-  # 他の通知タイプもここで処理できます
+  when 'group_apply'
+    redirect_to group_path(@notification.notifiable)  # グループ詳細ページに遷移
   end
   end
 
