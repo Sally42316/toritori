@@ -11,15 +11,26 @@ class Post < ApplicationRecord
     likes.exists?(user: user)
   end
 
-  # 投稿にいいねがついた時に通知を作成
-  def create_like_notification(liker)
+ # 投稿にいいねがついた時に通知を作成
+ def create_like_notification(liker)
+  # 同じユーザーから同じ投稿に対する通知がすでに存在するかを確認
+  existing_notification = Notification.find_by(
+    user: self.user,          # 通知を受け取るユーザー（投稿のオーナー）
+    sender: liker,            # 通知を送るユーザー（いいねをしたユーザー）
+    notifiable: self,         # 通知対象（この投稿）
+    notification_type: 'like' # 通知の種類
+  )
+
+  # もし通知がまだ存在しない場合のみ新しい通知を作成
+  unless existing_notification
     Notification.create(
-      user: self.user,  # 通知を受け取るユーザー（投稿のオーナー）
-      sender: liker,  # 通知を送るユーザー（いいねをしたユーザー）
-      notifiable: self,  # 通知対象（この投稿）
-      notification_type: 'like'  # 通知の種類
+      user: self.user,        # 通知を受け取るユーザー（投稿のオーナー）
+      sender: liker,          # 通知を送るユーザー（いいねをしたユーザー）
+      notifiable: self,       # 通知対象（この投稿）
+      notification_type: 'like' # 通知の種類
     )
   end
+end
 
     # 検索方法分岐
   def self.looks(search, word)
