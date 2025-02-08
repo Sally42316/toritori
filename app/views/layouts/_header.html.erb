@@ -35,14 +35,15 @@
               <%= link_to "My Group", my_groups_groups_path, class: "nav-link text-light" %>
             </li>
             <li>
-            <%= link_to notifications_path, class: "nav-link text-light" do %>
+            <%= link_to notifications_path, class: "nav-link text-light position-relative" do %>
               <span>Notification</span>
               <% if current_user.notifications.unread.count > 0 %>
-                <span class="badge badge-danger badge-pill ml-2">
+                <span class="badge badge-danger badge-pill position-absolute" 
+                      style="top: 2px; right: 10px; transform: translate(30%, -30%);">
                   <%= current_user.notifications.unread.count %>
                 </span>
               <% end %>
-            <% end %>  <!-- これで link_to のブロックが正しく終了します -->
+            <% end %>
             </li>
             <li>
               <%= link_to "Log out", destroy_user_session_path, class:"nav-link text-light", method: :delete %>
