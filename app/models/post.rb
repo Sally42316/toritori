@@ -11,6 +11,16 @@ class Post < ApplicationRecord
     likes.exists?(user: user)
   end
 
+  # 投稿にいいねがついた時に通知を作成
+  def create_like_notification(liker)
+    Notification.create(
+      user: self.user,  # 通知を受け取るユーザー（投稿のオーナー）
+      sender: liker,  # 通知を送るユーザー（いいねをしたユーザー）
+      notifiable: self,  # 通知対象（この投稿）
+      notification_type: 'like'  # 通知の種類
+    )
+  end
+
     # 検索方法分岐
   def self.looks(search, word)
     if search == "perfect_match"

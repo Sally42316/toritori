@@ -56,8 +56,8 @@ Rails.application.routes.draw do
     get 'my_groups', on: :collection
   end
 
-
-
+    # 通知関連のルートを追加
+    resources :notifications, only: [:index, :show, :destroy]
 
 
   # 管理者用ネームスペース

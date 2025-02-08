@@ -35,6 +35,16 @@
               <%= link_to "My Group", my_groups_groups_path, class: "nav-link text-light" %>
             </li>
             <li>
+            <%= link_to notifications_path, class: "nav-link text-light" do %>
+              <span>Notification</span>
+              <% if current_user.notifications.unread.count > 0 %>
+                <span class="badge badge-danger badge-pill ml-2">
+                  <%= current_user.notifications.unread.count %>
+                </span>
+              <% end %>
+            <% end %>  <!-- これで link_to のブロックが正しく終了します -->
+            </li>
+            <li>
               <%= link_to "Log out", destroy_user_session_path, class:"nav-link text-light", method: :delete %>
             </li>
             <li>
