@@ -1,0 +1,46 @@
+class NotificationsController < ApplicationController
+    before_action :authenticate_user!  # ユーザーがログインしていることを確認
+
+  # 未読通知の一覧を表示
+  def index
+    @notifications = current_user.notifications.unread.order(created_at: :desc)
+  end
+
+
+
+
+  # 通知の詳細を表示し、既読に更新
+  def show
+    @notification = Notification.find(params[:id])
+
+    if @notification.nil?
+      redirect_to notifications_path, alert: '通知が見つかりません。'
+      return
+    end
+    
+    # 既読に更新
+    @notification.update(status: :read)
+
+    # 通知タイプに応じて遷移先を設定
+  case @notification.notification_type
+  when 'like'
+    redirect_to post_path(@notification.notifiable)
+  when 'comment'
+    redirect_to post_path(@notification.notifiable.post)  # 投稿に関連する場合はこのまま
+    # コメント詳細ページに遷移したい場合は以下のように変更
+    # redirect_to comment_path(@notification.notifiable)  # コメントに関連する場合
+  # 他の通知タイプもここで処理できます
+  end
+  end
+
+
+
+
+  def destroy
+    @notification = Notification.find(params[:id])
+    @notification.destroy
+    redirect_to notifications_path, notice: '通知が既読されました。'
+  end
+
+
+end

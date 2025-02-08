@@ -5,6 +5,8 @@ class LikesController < ApplicationController
   def create
     unless @post.liked_by?(current_user)
       @post.likes.create(user: current_user)
+      # いいねされた際に通知を作成
+      @post.create_like_notification(current_user)  # 投稿に対する通知を作成
     end
     redirect_to root_path, notice: 'いいねしました！'
   end
