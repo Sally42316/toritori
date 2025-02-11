@@ -6,19 +6,19 @@ require 'open-uri'
 olivia = User.find_or_create_by!(email: "olivia@example.com") do |user|
     user.name = "Olivia"
     user.password = "password"
-    user.avatar = URI.parse('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-user1.jpg')
+    user.avatar.attach(io: URI.open('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-user1.jpg'), filename: 'sample-user1.jpg', content_type: 'image/jpeg')
 end
   
 james = User.find_or_create_by!(email: "james@example.com") do |user|
     user.name = "James"
     user.password = "password"
-    user.avatar = URI.parse('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-user2.jpg')
+    user.avatar.attach(io: URI.open('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-user2.jpg'), filename: 'sample-user2.jpg', content_type: 'image/jpeg')
 end
   
 lucas = User.find_or_create_by!(email: "lucas@example.com") do |user|
     user.name = "Lucas"
     user.password = "password"
-    user.avatar = URI.parse('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-user3.jpg')
+    user.avatar.attach(io: URI.open('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-user3.jpg'), filename: 'sample-user3.jpg', content_type: 'image/jpeg')
 end
 
 # adminユーザーの作成
@@ -31,17 +31,17 @@ admin = Admin.find_or_create_by(email: "admin@admin.com") do |admin|
 # 投稿の作成
 post_1 = Post.find_or_create_by!(user: olivia) do |post|
     post.text = "可愛い鳥見つけた"
-    post.images = URI.parse('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-post1.jpg')
+    post.images.attach(io: URI.open('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-post1.jpg'), filename: 'sample-post1.jpg', content_type: 'image/jpeg')
 end
   
 post_2 = Post.find_or_create_by!(user: james) do |post|
     post.text = "これは何の鳥だ？"
-    post.images = URI.parse('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-post2.jpg')
+    post.images.attach(io: URI.open('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-post2.jpg'), filename: 'sample-post2.jpg', content_type: 'image/jpeg')
 end
   
 post_3 = Post.find_or_create_by!(user: lucas) do |post|
     post.text = "ひな可愛い！"
-    post.images = URI.parse('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-post3.jpg')
+    post.images.attach(io: URI.open('https://my-toritori-images-bucket.s3.ap-northeast-1.amazonaws.com/seed/sample-post3.jpg'), filename: 'sample-post3.jpg', content_type: 'image/jpeg')
 end
   
 # グループの作成
