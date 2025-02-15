@@ -25,7 +25,7 @@ Xをメインに検索をかけると関係のない情報も拾ってしまう�
 - 同じ鳥種が好きな人ととにかく繋がりたい人（コミュニティサイト）
 ​
 ## 設計書
-![Image](https://github.com/user-attachments/assets/b0e08e8a-0d49-4b52-846b-f8f3a356e24d)
+![Image](https://github.com/user-attachments/assets/4ab10d0e-bdc0-4a4b-85b0-c1d9e86cf41e)
 ![Image](https://github.com/user-attachments/assets/aca23b70-463c-4d5a-a7ab-a5c523baf402)
 ![Image](https://github.com/user-attachments/assets/778731cf-d206-4cde-ae36-788ccdb7689b)
 ​
