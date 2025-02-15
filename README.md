@@ -27,7 +27,7 @@ Xをメインに検索をかけると関係のない情報も拾ってしまう�
 ## 設計書
 ![Image](https://github.com/user-attachments/assets/4ab10d0e-bdc0-4a4b-85b0-c1d9e86cf41e)
 ![Image](https://github.com/user-attachments/assets/aca23b70-463c-4d5a-a7ab-a5c523baf402)
-![Image](https://github.com/user-attachments/assets/778731cf-d206-4cde-ae36-788ccdb7689b)
+![Image](https://github.com/user-attachments/assets/2d641e4c-6c18-4842-aeb6-c563babfa2ec)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
