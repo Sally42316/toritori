@@ -28,7 +28,7 @@ Xをメインに検索をかけると関係のない情報も拾ってしまう�
 ![Image](https://github.com/user-attachments/assets/4ab10d0e-bdc0-4a4b-85b0-c1d9e86cf41e)
 ![Image](https://github.com/user-attachments/assets/aca23b70-463c-4d5a-a7ab-a5c523baf402)
 ![Image](https://github.com/user-attachments/assets/45d5afd3-8517-4e91-ab20-a1465bd84a4d)
-[toritori_【短期専門】24_04-PFロードマップ_アプリケーション詳細設計書  - 初回routesタブ.pdf](https://github.com/user-attachments/files/18814467/toritori_.24_04-PF._.-.routes.pdf)
+[toritori_アプリケーション詳細設計書  - 初回routesタブ.pdf](https://github.com/user-attachments/files/18814469/toritori_.-.routes.pdf)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
