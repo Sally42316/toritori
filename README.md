@@ -29,6 +29,7 @@ Xをメインに検索をかけると関係のない情報も拾ってしまう�
 ![Image](https://github.com/user-attachments/assets/aca23b70-463c-4d5a-a7ab-a5c523baf402)
 ![Image](https://github.com/user-attachments/assets/45d5afd3-8517-4e91-ab20-a1465bd84a4d)
 ![Image](https://github.com/user-attachments/assets/9c259109-b655-4a0c-8102-24ca0aa0cf8e)
+
 [toritori_アプリケーション詳細設計書  - 設計書.pdf](https://github.com/user-attachments/files/18814474/toritori_.-.pdf)
 ​
 ## 開発環境
