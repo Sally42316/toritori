@@ -1,27 +1,25 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-12">
-      <h1 class="mb-4">一般ユーザーが投稿したコメント一覧</h1>
+      <h1 class="mb-4">管理者用 - コメント一覧</h1>
       
-      <!-- 説明文 -->
-
       <!-- コメント一覧テーブル -->
       <table class="table table-striped table-bordered">
         <thead class="thead-dark">
           <tr>
             <th>コメントユーザー名</th>
-            <th>コメント先投稿</th> <!-- 投稿タイトルを追加 -->
+            <th>コメント先投稿</th> <!-- 投稿タイトルを表示 -->
             <th>コメント内容</th>
-            <th>投稿日時</th>
+            <th>コメント登録日時</th>
           </tr>
         </thead>
         <tbody>
           <% @comments.each do |comment| %>
             <tr>
-              <td><%= comment.user.name %></td>  <!-- ユーザー名を表示 -->
-              <td><%= link_to comment.post.text, admin_post_path(comment.post), class: "text-decoration-none" %></td> <!-- コメントが関連する投稿タイトルのリンクを追加 -->
-              <td><%= link_to comment.comment, admin_comment_path(comment), class: "text-decoration-none" %></td> <!-- コメント内容をクリックすると詳細ページへ遷移 -->
-              <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>  <!-- コメントの投稿日を表示 -->
+              <td><%= comment.user.name %></td>  <!-- コメントユーザー名を表示 -->
+              <td><%= link_to comment.post.title, admin_post_path(comment.post), class: "text-decoration-none" %></td> <!-- コメントが関連する投稿タイトルを表示 -->
+              <td><%= comment.comment.truncate(50) %></td>  <!-- コメント内容の先頭50文字を表示 -->
+              <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>  <!-- コメント登録日時を表示 -->
             </tr>
           <% end %>
         </tbody>
