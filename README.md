@@ -18,7 +18,7 @@ Xをメインに検索をかけると関係のない情報も拾ってしまう�
 - 飼い鳥を逃がしてしまい、とにかくボランティアと共に見つけたい人
 ​
 ### 主な利用シーン
-- 鳥が好きで癒しを得たいとき<br>
+- 鳥が好きで鳥の写真を見て癒しを得たいとき<br>
 - 珍しい野鳥を見つけて、場所や写真を共有したいとき<br>
 - 描いた鳥の絵を共有したい時<br>
 - 室内飼い鳥を逃がしてしまって、一緒に探す人を募集したい人（コミュニティサイト）
@@ -28,6 +28,9 @@ Xをメインに検索をかけると関係のない情報も拾ってしまう�
 ![Image](https://github.com/user-attachments/assets/4ab10d0e-bdc0-4a4b-85b0-c1d9e86cf41e)
 ![Image](https://github.com/user-attachments/assets/aca23b70-463c-4d5a-a7ab-a5c523baf402)
 ![Image](https://github.com/user-attachments/assets/45d5afd3-8517-4e91-ab20-a1465bd84a4d)
+![Image](https://github.com/user-attachments/assets/9c259109-b655-4a0c-8102-24ca0aa0cf8e)
+
+[toritori_アプリケーション詳細設計書  - 設計書.pdf](https://github.com/user-attachments/files/18814474/toritori_.-.pdf)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
@@ -41,10 +44,5 @@ Xをメインに検索をかけると関係のない情報も拾ってしまう�
 いらすとや(https://www.irasutoya.com/)
 
 ## テストデータ（seeds.rb）の利用について
-- seeds.rbのコメントアウトを解除
 - $ rails db:reset
 - 本番環境の場合: $ rails db:seed RAILS_ENV=production
-- テストデータが使用できるようになります。
-- テストデータを使用しないときは
-- seeds.rbをコメントアウト
-- $ rails db:migrate:reset です
