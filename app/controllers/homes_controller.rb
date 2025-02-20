@@ -1,5 +1,4 @@
 class HomesController < ApplicationController
-  def top
   #   # ログインユーザーの投稿と他ユーザーの投稿を時系列順に取得
   #   # @posts = Post.order(created_at: :desc).includes(:user) # 投稿を新しい順に取得
   #   # 「いいね数順」に並べ替えを実現
@@ -14,16 +13,37 @@ class HomesController < ApplicationController
 
   # def about
   # end
+
+
+#   if params[:sort] == 'likes'
+#     @posts = Post.left_joins(:likes)
+#                  .joins(:user)  # ユーザーと関連付けて
+#                  .where(users: { is_deleted: false })  # ユーザーが削除されていない投稿のみ
+#                  .group(:id)
+#                  .order('COUNT(likes.id) DESC')
+#   else
+#     @posts = Post.joins(:user)
+#                  .where(users: { is_deleted: false })  # ユーザーが削除されていない投稿のみ
+#                  .order(created_at: :desc)
+#   end
+# end
+
+
+def top
   if params[:sort] == 'likes'
     @posts = Post.left_joins(:likes)
-                 .joins(:user)  # ユーザーと関連付けて
-                 .where(users: { is_deleted: false })  # ユーザーが削除されていない投稿のみ
+                 .joins(:user)
+                 .where(users: { is_deleted: false })
                  .group(:id)
                  .order('COUNT(likes.id) DESC')
+                 .page(params[:page])  # ページネーションを追加
+                 .per(5)  # 1ページあたりの投稿数
   else
     @posts = Post.joins(:user)
-                 .where(users: { is_deleted: false })  # ユーザーが削除されていない投稿のみ
+                 .where(users: { is_deleted: false })
                  .order(created_at: :desc)
+                 .page(params[:page])  # ページネーションを追加
+                 .per(5)  # 1ページあたりの投稿数
   end
 end
 end
