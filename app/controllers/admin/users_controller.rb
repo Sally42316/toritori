@@ -7,7 +7,10 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.order(created_at: :desc)  # 最新登録順（降順）で並び替え
+                  .page(params[:page])
+                  .per(3)  # 1ページあたり3件を表示
+
     Rails.logger.info "Users: #{@users.inspect}"
   end
 
