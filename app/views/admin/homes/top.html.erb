@@ -19,7 +19,7 @@
               <td><%= comment.user.name %></td>  <!-- コメントユーザー名を表示 -->
               <td><%= link_to comment.post.title, admin_post_path(comment.post), class: "text-decoration-none" %></td> <!-- コメントが関連する投稿タイトルを表示 -->
               <td><%= comment.comment.truncate(50) %></td>  <!-- コメント内容の先頭50文字を表示 -->
-              <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>  <!-- コメント登録日時を表示 -->
+              <td><%= comment.created_at.in_time_zone("Asia/Tokyo").strftime("%Y-%m-%d %H:%M:%S") %></td>  <!-- 日本時間でコメント登録日時を表示 -->
             </tr>
           <% end %>
         </tbody>

@@ -4,6 +4,6 @@ class Admin::HomesController < ApplicationController
     @comments = Comment.includes(:user, :post)
                        .order(created_at: :desc)
                        .page(params[:page])  # ページネーションを追加
-                       .per(10)  # 1ページあたり3件を表示
+                       .per(3)  # 1ページあたり3件を表示
   end
 end
