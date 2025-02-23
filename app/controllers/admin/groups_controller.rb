@@ -15,6 +15,10 @@ class Admin::GroupsController < Admin::ApplicationController
     if params[:owner_name].present?
       @groups = @groups.joins(:owner).where("users.name LIKE ?", "%#{params[:owner_name]}%")
     end
+    # ページネーションを追加
+    @groups = @groups.order(created_at: :desc)  # 作成日時で降順ソート（最近作成された順）
+                        .page(params[:page])   # ページネーションを追加
+                        .per(3)                # 1ページあたり3件表示
     end
 
     def destroy
