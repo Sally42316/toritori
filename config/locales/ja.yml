@@ -5,6 +5,7 @@ ja:
       blank: "を入力してください"
       too_long: "は%{count}文字以内で入力してください"
       too_short: "は%{count}文字以上で入力してください"
+      not_saved: "保存できませんでした"  # 追加部分
   devise:
     sessions:
       signed_in: "ログインしました"
@@ -22,6 +23,7 @@ ja:
       user:
         not_found_in_database: "ユーザーが見つかりません"
         deleted: 'アカウントは削除されているため、ログインできません。'
+        invalid: "無効なユーザー名またはパスワードです。"
       admin:
         not_found_in_database: "管理者ユーザーが見つかりません"
         already_authenticated: "管理者はすでにログインしています"
