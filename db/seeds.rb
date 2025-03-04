@@ -101,5 +101,9 @@ end
 Comment.find_or_create_by!(user_id: lucas.id, post_id: post_2.id) do |comment|
     comment.comment = "可愛い！"
 end
+
+Comment.find_or_create_by!(user_id: lucas.id, post_id: post_1.id) do |comment|
+    comment.comment = "素敵！"
+end
   
 puts "Seed data created successfully."
